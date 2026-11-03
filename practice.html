@@ -8,6 +8,15 @@
 .volunteer-card{gap:0;padding:0;overflow:hidden}
 .volunteer-card-title{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 20px;background:var(--surface-2);border-bottom:1px solid var(--line)}
 .hx-section{padding:18px 20px;border-bottom:1px solid var(--line)}
+.ps{padding:18px 22px 22px;line-height:1.7}
+.ps p{margin:0 0 14px}
+.ps .ps-h{margin-top:20px}
+.ps .ps-h:first-child{margin-top:0}
+.ps-list{margin:0 0 14px;padding-left:24px;list-style:disc}
+.ps-list .ps-list{margin:6px 0 4px;list-style:circle}
+.ps-list li{margin:4px 0;overflow-wrap:anywhere}
+.ps .ps-note{margin:10px 0 0;color:var(--muted,inherit)}
+.ps .ps-note+.ps-note{margin-top:4px}
 .hx-section:last-child{border-bottom:0}
 .hx-section h3{font-family:var(--f-display);font-size:1.08rem;line-height:1.35;font-weight:800;margin:0 0 12px;color:var(--fg)}
 .hx-section p{margin:0 0 8px;line-height:1.65}
@@ -162,6 +171,7 @@ const DOMAINS=[
  {id:'ah1',code:'AH1',title:'Adult Health 1 / Medicine',c:'--c-ah1'}];
 const TYPES={Hx:'History',Couns:'Counselling',Exam:'Examination',Mx:'Management'};
 const CASES=[];function add(list){list.forEach(c=>CASES.push(c))}
+const PS={};
 </script>
 <script>
 add([
@@ -1419,6 +1429,1244 @@ ref:'eTG Endocrinology (Thyroid nodules).'}
 ]);
 
 </script>
+<script id="ps-mh">
+Object.assign(PS,{
+'mh-c1':`# Profile:
+- Name: Laura Skillet
+- Age: 17-year-old
+- Gender: Female
+- Aboriginal or Torres Strait Islander: No
+- Setting: Emergency Department
+# Presenting complaint: Paracetamol overdose / suicide risk assessment; brought into hospital by her concerned mother.
+# Appearance and behaviour: Avoid eye contact, talk quietly, be sullen and glum, and use closed-off body language.
+# History of presenting complaint:
+- Opening statement:
+  - "I just want to go home now, I feel okay and the other doctor said I am fine."
+- History of overdose:
+  - Took 15 x 500 mg paracetamol tablets all at once, nine hours ago
+  - Consumed no other medications / drugs / alcohol
+  - First time doing this
+- Associated symptoms:
+  - No vomiting
+  - No abdominal pain
+  - Associated superficial cuts to both thighs
+# Risk assessment:
+- Background to current attempt:
+  - Planned three days ago
+  - Chose paracetamol as found out about it online
+  - Went to shops to buy paracetamol yesterday
+  - Wrote a note for family
+- Further information on current attempt:
+  - Took pills at home, in bedroom
+  - No one was home at the time (both parents at work, Dad away this week for work)
+  - Took with the intention to end her life
+  - Your mother found you in your room when she returned home from work – you were refusing to come out; she brought you straight to the Emergency Department when you admitted what had happened
+- Insight and judgement:
+  - Does not regret it, and would do it again if had the chance
+  - Currently still feels suicidal, and plans to jump off the bridge near her house
+- Other risks:
+  - No access to weapons
+  - Does not want to harm anyone else
+- **If asked about her mood or why she feels like this** – "I don't want to talk about that."
+# Medical history: Nil
+# Immunisations: Up to date
+# Medications: Nil
+# Allergies: Nil known
+# Family history: Nil significant
+# Social history:
+- Smoking: vapes occasionally
+- Alcohol: binge drinks on weekends
+- School: in Year 12, not attending school currently as "doesn't want to"
+- Family: home with Mum (cleaner) and Dad (FIFO worker)
+- Sexual history: "I don't want to talk about that."
+# If told she needs to stay in hospital:
+- "But I don't want to stay here." (become quietly upset)
+{footer}`,
+
+'mh-c2':`# Profile:
+- Name: Greg Fisher
+- Age: 52-year-old
+- Gender: Male
+- Aboriginal or Torres Strait Islander: No
+- Setting: Medical ward, day 2 of admission for leg cellulitis
+# Presenting complaint: Sweaty, shaky and agitated on the ward; possible alcohol withdrawal.
+# Appearance and behaviour: Restless and fidgety, hands shaking, wipe sweat from your face, keep glancing at the wall as if you see bugs. Irritable but cooperative if spoken to calmly.
+# History of presenting complaint:
+- Opening statement:
+  - "I need to get out of here. There are bugs on the wall."
+- Current symptoms:
+  - Shaky and sweaty since this morning
+  - Feel anxious, "on edge", heart racing
+  - Seeing little black bugs crawling on the wall
+  - Nauseated, no vomiting
+  - Could not sleep last night
+- Orientation (if asked):
+  - Knows he is in hospital, but unsure of the day
+# Alcohol history:
+- Amount:
+  - 1 bottle of wine and 6 full-strength beers every day for 10 years
+- Last drink:
+  - 48 hours ago, just before coming into hospital
+- Dependence features:
+  - Shaky in the mornings; a drink settles it
+  - Needs more to get the same effect
+  - Drinks even when he knows it is causing problems
+- Previous withdrawal:
+  - Had a seizure ("a fit") 2 years ago when he stopped drinking suddenly
+  - No previous "DTs" that he knows of
+- Previous attempts to cut down:
+  - Tried twice on his own, could not manage it
+  - Never been to rehab or detox
+- Consequences:
+  - Lost his driver's licence for drink driving 3 years ago
+  - Wife is "fed up with it"
+- Other drugs: none
+# Medical history:
+- Cellulitis of the left leg (current admission)
+- GP told him his "liver is a bit off" on blood tests last year
+- No head injuries
+# Medications: Nil regular (IV antibiotics in hospital)
+# Allergies: Nil known
+# Family history: Father was "a heavy drinker"; died of liver disease at 60
+# Social history:
+- Smoking: 20 cigarettes a day
+- Lives with wife; two adult children
+- Work: forklift driver; has been late to work a lot recently
+# Questions to ask the doctor:
+- "Can I have a drink to calm down?"
+- "Am I going crazy?"
+# Examination findings (examiner to give if asked):
+- HR 112, BP 156/92, T 37.8 °C
+- Coarse tremor, sweating, visual hallucinations
+- Alcohol Withdrawal Scale score: 15
+{footer}`,
+
+'mh-c3':`# Profile:
+- Name: Ryan Cooper
+- Age: 22-year-old
+- Gender: Male
+- Aboriginal or Torres Strait Islander: No
+- Setting: General practice
+# Presenting complaint: Recently diagnosed with moderate depression; psychiatrist has started sertraline 50 mg daily. Has questions before starting.
+# Appearance and behaviour: Anxious and a little fidgety. Polite and engaged. Asks your questions when given the chance.
+# History of presenting complaint:
+- Opening statement:
+  - "I'm a bit worried about taking these. Will they change my personality?"
+- Depression:
+  - Diagnosed by psychiatrist 2 weeks ago
+  - Low mood and poor motivation for about 4 months, struggling with uni
+  - Sleep poor, appetite a bit down
+- Current treatment:
+  - Seeing a psychologist every fortnight; finds it helpful
+  - Has the sertraline script but has not started it
+# Risk:
+- No thoughts of suicide or self-harm now
+- Never had these thoughts with a plan
+- No thoughts of harming others
+# Medical history: Nil
+# Medications:
+- Nil prescribed
+- Takes St John's wort "sometimes" – bought it at the chemist for his mood
+# Allergies: Nil known
+# Family history: Mum has anxiety, takes "some kind of tablet"
+# Social history:
+- Smoking: no
+- Alcohol: 6–8 drinks on a Friday or Saturday night with friends
+- Drugs: MDMA ("pills") occasionally at music festivals; next festival in 3 weeks
+- Study: second-year engineering student
+- Lives in a share house with two friends
+- Relationship: has a girlfriend of 1 year
+# Questions to ask the doctor:
+- "How long until it works?"
+- "Can I still drink on the weekend?"
+- "Will it affect sex?"
+- "Will I get addicted to them?"
+{footer}`,
+
+'mh-c4':`# Profile:
+- Name: Chloe Evans (with her mother, Anne)
+- Age: 17-year-old
+- Gender: Female
+- Aboriginal or Torres Strait Islander: No
+- Setting: General practice
+# Presenting complaint: Recently diagnosed anorexia nervosa; here with her mother to discuss blood test results.
+# Appearance and behaviour:
+- Chloe: arms folded, minimises everything, a bit irritated
+- Anne (mother): worried and frightened, may become teary
+# History of presenting complaint:
+- Opening statement (Chloe):
+  - "I feel fine. I don't know why everyone's making a fuss."
+- Eating (Chloe):
+  - Eats about 600 calories a day – "a piece of fruit for breakfast, salad for dinner"
+  - Sometimes makes herself vomit after meals if she feels she has eaten "too much"
+  - No laxatives or diet pills
+- Exercise:
+  - Runs 10 km every day, even when tired
+- Physical symptoms:
+  - Periods stopped 6 months ago
+  - Dizzy when she stands up quickly
+  - Always cold
+  - No chest pain, no blackouts
+- Weight:
+  - Lost about 10 kg over 8 months
+  - "I still think my stomach is too big."
+# Risk:
+- No thoughts of suicide or self-harm
+# Medical history: Nil
+# Medications: Nil
+# Allergies: Nil known
+# Family history: Mum has had depression
+# Social history:
+- Year 12 student, high achiever; under pressure with exams
+- Lives with Mum, Dad and younger brother
+- Smoking, alcohol, drugs: none
+# Questions to ask the doctor:
+- Chloe: "Do I have to go to hospital?"
+- Anne: "Is she going to die?"
+# Examination findings (examiner to give if asked):
+- HR 44, BP 88/50, postural drop of 20 mmHg
+- T 35.6 °C
+{footer}`,
+
+'mh-c5':`# Profile:
+- Name: Matt Gibson
+- Age: 34-year-old
+- Gender: Male
+- Aboriginal or Torres Strait Islander: No
+- Setting: General practice
+# Presenting complaint: Palpitations and chest tightness for 8 months; cardiologist found no heart cause.
+# Appearance and behaviour: Restless, fidgeting, hand on your chest at times. Speak quickly.
+# History of presenting complaint:
+- Opening statement:
+  - "The heart doctor says I'm fine, but I know something's wrong."
+- Worry:
+  - Worries constantly about work, money, his health and his kids
+  - Most days for over a year
+  - Cannot switch off or control the worry
+- Physical symptoms with worry:
+  - Palpitations, sweating, tight chest when stressed
+  - Tense muscles in his neck and shoulders
+  - Poor sleep – takes 2 hours to fall asleep
+  - Irritable with his wife and kids, poor concentration at work
+- Attacks:
+  - 3 sudden attacks "out of the blue" in the past 6 months
+  - Racing heart, shaking, short of breath, felt like he was dying
+  - Peaked within 10 minutes, gone by 30 minutes
+  - Now worries about having another one
+- Mood:
+  - "A bit low" at times, but still enjoys time with his kids and football
+# Negatives (if asked):
+- No weight loss, no heat intolerance, no tremor at rest
+- No chest pain on exercise
+- No thoughts of suicide or self-harm
+- No hearing voices or unusual beliefs
+- No obsessions or repetitive rituals
+- No trauma history
+# Medical history: Nil. Cardiology tests (ECG, Holter, echo, stress test) all normal.
+# Medications: Nil
+# Allergies: Nil known
+# Family history: Mum "has always been a worrier"
+# Social history:
+- Caffeine: 6 coffees a day
+- Alcohol: 3 beers a night "to relax"
+- Smoking: no. Drugs: no
+- Work: IT project manager, long hours, big deadline coming up
+- Lives with wife and two children (4 and 7)
+# Questions to ask the doctor:
+- "Am I going crazy?"
+- "Is there something that can fix this?"
+{footer}`,
+
+'mh-c6':`# Profile:
+- Name: Liam Burke
+- Age: 35-year-old
+- Gender: Male
+- Aboriginal or Torres Strait Islander: No
+- Setting: Community mental health clinic
+# Presenting complaint: Schizophrenia, well on clozapine for 3 years; voices have returned over the last month.
+# Appearance and behaviour: Mildly distracted, occasionally pause as if listening. Honest and cooperative.
+# History of presenting complaint:
+- Opening statement:
+  - "The voices are back telling me I'm worthless. I take my tablets, I promise."
+- Voices:
+  - Started again about 1 month ago
+  - A man's voice, comments on what he is doing and says he is worthless
+  - Does not tell him to do things
+  - No new strange beliefs; no one is out to get him
+- Medication:
+  - Clozapine 400 mg every night; uses a Webster pack from the chemist
+  - Has not missed any doses
+  - No new medicines
+- Smoking:
+  - Started smoking again 6 weeks ago (had quit for 1 year)
+  - Now 20 cigarettes a day
+- Side effects:
+  - Constipated – bowels open every 4 days, hard stools
+  - Drools a bit at night
+  - No chest pain, fever, sore throat or shortness of breath
+# Risk:
+- No thoughts of harming himself or anyone else
+# Medical history: Schizophrenia diagnosed at 22; several admissions before clozapine
+# Medications: Clozapine 400 mg nocte
+# Allergies: Nil known
+# Family history: Nil significant
+# Social history:
+- Alcohol: rarely. Drugs: none
+- Lives in supported accommodation; sees case manager weekly
+- Works part time at a garden nursery
+# Questions to ask the doctor:
+- "Are you going to change my medicine?"
+- "Why have the voices come back if I'm taking it?"
+# Results (examiner to give if asked):
+- FBC: WCC 6.2, neutrophils 3.8 (normal)
+- Clozapine level: 180 µg/L (previously 420 µg/L)
+- Troponin and CRP normal
+{footer}`,
+
+'mh-c7':`# Profile:
+- Name: Tom Baker
+- Age: 28-year-old
+- Gender: Male
+- Aboriginal or Torres Strait Islander: No
+- Setting: Community mental health clinic
+# Presenting complaint: Schizophrenia on risperidone; case manager reports he has been missing doses.
+# Appearance and behaviour: Frustrated and fed up at the start. Becomes more open if the doctor listens and is non-judgemental.
+# History of presenting complaint:
+- Opening statement:
+  - "I hate these pills. I'm sick of them."
+- Medication:
+  - Risperidone 4 mg daily for 2 years
+  - Skips doses 2–3 times a week, especially when going out with mates
+- Side effects:
+  - Put on 15 kg in a year; clothes don't fit
+  - Can't get erections; embarrassed to talk about it
+  - Breasts are tender
+  - Feels restless, can't sit still, has to keep moving his legs
+  - Mild shake in his hands
+  - No muscle spasms or stiffness of the neck or jaw
+  - No fever or confusion
+- Mental health now:
+  - No voices at the moment
+  - No strange beliefs
+  - Mood okay
+# Risk:
+- No thoughts of harming himself or others
+# Medical history: Schizophrenia diagnosed at 24; one admission when he stopped medication
+# Medications: Risperidone 4 mg daily
+# Allergies: Nil known
+# Family history: Dad has type 2 diabetes
+# Social history:
+- Smoking: 20 cigarettes a day
+- Alcohol: 6–8 beers on Saturdays
+- Drugs: occasional cannabis
+- Diet: takeaway most days; no exercise
+- Lives with his mum; works casually at a car wash
+- Single; would like a girlfriend
+# Questions to ask the doctor:
+- "Can I just stop them?"
+- "Is there a tablet that won't make me fat?"
+{footer}`,
+
+'mh-c8':`# Profile:
+- Name: Ella Turner
+- Age: 30-year-old
+- Gender: Female
+- Aboriginal or Torres Strait Islander: No
+- Setting: General practice
+# Presenting complaint: 28 weeks pregnant with first baby; low mood; EPDS score 15 at antenatal visit.
+# Appearance and behaviour: Teary, speak slowly and quietly, sound guilty.
+# History of presenting complaint:
+- Opening statement:
+  - "I should be happy, but I just feel numb."
+- Mood:
+  - Low most days for 6 weeks
+  - Cannot enjoy anything, even setting up the nursery
+  - Feels guilty that she is not excited about the baby
+  - Tired all the time, poor concentration at work
+- Sleep and appetite:
+  - Wakes at 3 am and can't get back to sleep
+  - Eating less than usual
+- Pregnancy:
+  - Planned pregnancy; baby moving well
+  - No complications so far
+# Risk:
+- Fleeting thoughts that "everyone would be better off without me"
+- No plan, no intention to act, has never hurt herself
+- No thoughts of harming the baby
+- Reasons for living: her partner and the baby
+# Psychiatric history:
+- Depression at age 22, treated with sertraline for 1 year, worked well
+- No hospital admissions
+- No episodes of very high mood
+# Medical history: Nil
+# Medications: Pregnancy multivitamin
+# Allergies: Nil known
+# Family history: Mum had "postnatal depression"
+# Social history:
+- Partner works away (FIFO, 2 weeks on, 1 week off); family live interstate
+- Works as an accountant
+- No alcohol, smoking or drugs
+# Questions to ask the doctor:
+- "Will antidepressants hurt the baby?"
+- "Does this mean I'll be a bad mum?"
+{footer}`,
+
+'mh-c9':`# Profile:
+- Name: Beryl Johnson
+- Age: 79-year-old
+- Gender: Female
+- Aboriginal or Torres Strait Islander: No
+- Setting: General practice
+# Presenting complaint: Tired and forgetful for 3 months; daughter is worried.
+# Appearance and behaviour: Slow speech, flat voice, often answer "I don't know, dear" before giving the answer.
+# History of presenting complaint:
+- Opening statement:
+  - "I'm just old and tired, dear."
+- Mood:
+  - Husband, Ron, died 6 months ago
+  - Feels low most days for 3 months; no longer enjoys gardening or church
+  - Feels she is "a burden" on her daughter
+- Sleep and appetite:
+  - Wakes at 4 am and can't get back to sleep
+  - Poor appetite; lost 4 kg
+- Memory and concentration:
+  - Forgets appointments
+  - Can't concentrate on the newspaper
+  - Still manages her own money and cooking, though "can't be bothered"
+  - Does not get lost; no change in personality
+# Risk:
+- Passive thoughts: "I wouldn't mind if I didn't wake up"
+- No plan, would not act because of her grandchildren
+# Negatives (if asked):
+- No falls, no new pains, no change in bowels, no bleeding
+- No hearing voices
+- Not cold all the time, no constipation
+# Medical history: High blood pressure; high cholesterol
+# Medications: Amlodipine 5 mg daily; atorvastatin 20 mg daily
+# Allergies: Nil known
+# Family history: Nil significant
+# Social history:
+- Lives alone in her own house; daughter visits twice a week
+- Independent with showering and dressing; daughter now does the shopping
+- Alcohol: one sherry at night. Never smoked
+- Does not drive
+# Questions to ask the doctor:
+- "Is it dementia?"
+- "I don't want to be put in a home."
+{footer}`,
+
+'mh-c10':`# Profile:
+- Name: Sarah Doyle
+- Age: 30-year-old
+- Gender: Female
+- Aboriginal or Torres Strait Islander: No
+- Setting: General practice
+# Presenting complaint: Trouble sleeping; read about PTSD online and worried she has it.
+# Appearance and behaviour: Tense and on edge. Become distressed and tearful if pushed for graphic details of the accident.
+# History of presenting complaint:
+- Opening statement:
+  - "I can't sleep, and I keep reliving it."
+- The event:
+  - Car accident 4 months ago; another car ran a red light and hit the passenger side
+  - Her son (6) was injured – broken arm, now recovered
+  - She thought he had died
+- Re-experiencing:
+  - Nightmares about the crash several times a week
+  - Sudden flashbacks during the day, especially hearing car horns or brakes
+- Avoidance:
+  - Avoids driving; her husband drives the kids to school
+  - Avoids the road where it happened
+- Arousal:
+  - Jumpy, easily startled
+  - Irritable with the kids, can't concentrate
+  - Takes hours to fall asleep
+- Mood and thoughts:
+  - Feels guilty – "I should have seen it coming"
+  - Feels detached from her family, numb
+# Risk:
+- No thoughts of suicide or self-harm
+# Medical history: Nil
+# Medications: Nil
+# Allergies: Nil known
+# Family history: Nil significant
+# Social history:
+- Alcohol: drinking 2–3 glasses of wine every night to sleep (used to be 1–2 a week)
+- Smoking, drugs: none
+- Married, two children (6 and 3); husband supportive
+- Has stopped her part-time job as a receptionist since the accident
+# Questions to ask the doctor:
+- "Will this ever go away?"
+- "Do I need tablets?"
+{footer}`,
+
+'mh-e1':`# Profile:
+- Name: Jake Moore
+- Age: 21-year-old
+- Gender: Male
+- Aboriginal or Torres Strait Islander: No
+- Setting: Emergency Department; brought in by his mother
+# Presenting complaint: "Acting strangely" for 2 months.
+# Appearance and behaviour: Guarded and suspicious, keep looking around the room and at the ceiling. Pause occasionally as if listening to something. Speech normal speed. Do not make much eye contact.
+# History of presenting complaint:
+- Opening statement:
+  - "I shouldn't be here. They're watching me through the TV."
+- Voices:
+  - Hears two men's voices for 2 months, talking about him ("he's useless", "he knows")
+  - Heard from outside his head, even when alone
+- Beliefs:
+  - Believes the neighbours put cameras in his TV to watch him
+  - Completely sure of this; cannot be talked out of it
+  - Thinks the radio sometimes sends him messages
+- Function:
+  - Stopped going to TAFE 6 weeks ago
+  - Sleeping 2–3 hours a night
+  - Stays in his room, stopped seeing friends
+- Mood:
+  - "Fine"; not depressed, not high
+# Risk:
+- No thoughts of harming himself
+- Says he "might have to deal with" the neighbours; no specific plan
+- No weapons
+# Insight:
+- Does not think he is unwell; thinks his mum is overreacting
+# Substance use:
+- Cannabis every day since age 16, about 2 grams a day
+- Has used ice (methamphetamine) a few times in the last month
+- Alcohol: a few beers on weekends
+# Medical history: Nil; no head injuries
+# Medications: Nil
+# Allergies: Nil known
+# Family history: Uncle (Mum's brother) has schizophrenia
+# Social history:
+- Lives with his mum; parents separated
+- Smokes 10 cigarettes a day
+- No police contact
+# Questions to ask the doctor:
+- "Are you working with them?"
+- "Can I go home now?"
+# Mental state examination (examiner reference):
+- Appearance: dishevelled young man, poor eye contact; behaviour guarded, scanning room, appears to respond to internal stimuli
+- Speech normal rate; mood "fine", affect restricted and suspicious
+- Thought form largely coherent; content: persecutory and referential delusions
+- Perception: second- and third-person auditory hallucinations
+- Cognition grossly intact; insight and judgement poor
+{footer}`,
+});
+</script>
+<script id="ps-rnh">
+Object.assign(PS,{
+'rnh-c1':`# Profile:
+- Name: Emma Walsh
+- Age: 31-year-old
+- Gender: Female
+- Aboriginal or Torres Strait Islander: No
+- Setting: General practice, 6-week postnatal check
+# Presenting complaint: Routine postnatal check 6 weeks after an uncomplicated vaginal birth of her first baby, Noah. Has questions about vaccines and cervical screening.
+# Appearance and behaviour: Friendly and chatty, a bit tired. Become teary only if asked directly about your mood.
+# History of presenting complaint:
+- Opening statement:
+  - "I think everything is okay, but I have a few questions about needles for both of us."
+- Bleeding:
+  - Bleeding after the birth stopped at 4 weeks
+  - No smelly discharge, no fever, no heavy bleeding
+- Perineum:
+  - Had a second-degree tear with stitches; healed
+  - Tried sex once – mildly uncomfortable
+- Breastfeeding:
+  - Going well; Noah feeding every 3 hours
+  - Had one sore nipple, now fine; no breast redness or lumps
+- Bladder and bowels:
+  - Bowels normal
+  - Occasional small leak of urine when sneezing
+- Mood:
+  - "Some days I cry for no reason, but I love him."
+  - Sleeping when the baby sleeps
+  - No thoughts of harming herself or the baby
+  - Partner (Josh) is very supportive
+# Contraception:
+- Not using anything at the moment
+- Does not want another baby for at least 2 years
+# Immunisations:
+- Had whooping cough (dTpa) and flu vaccines during pregnancy
+- Not sure if she is immune to rubella
+# Cervical screening:
+- Last test 2 weeks before she fell pregnant: "HPV not detected"
+# Medical history: Nil
+# Medications: Pregnancy multivitamin
+# Allergies: Nil known
+# Family history: Nil significant
+# Social history:
+- Lives with partner; works as a hairdresser (on maternity leave)
+- No smoking, no alcohol while breastfeeding, no drugs
+# Questions to ask the doctor:
+- "Does Noah need his needles at 6 weeks, and which ones?"
+- "Can I have vaccines while breastfeeding?"
+- "Do I need another smear now?"
+# Examination findings (examiner to give if asked):
+- BP 118/72; uterus not palpable; perineum healed
+- Edinburgh Postnatal Depression Scale (EPDS): 8
+- Antenatal rubella serology: non-immune
+{footer}`,
+
+'rnh-c2':`# Profile:
+- Name: Hannah Lee
+- Age: 28-year-old
+- Gender: Female
+- Aboriginal or Torres Strait Islander: No
+- Setting: Birth suite, regional hospital
+# Presenting complaint: 32 weeks pregnant; painless bright red vaginal bleeding this morning, now settled. Ultrasound shows placenta covering the cervix.
+# Appearance and behaviour: Anxious about the baby but composed. Ask lots of "what if" questions.
+# History of presenting complaint:
+- Opening statement:
+  - "I just stood up from the couch and there was blood everywhere. Is my baby okay?"
+- Bleeding:
+  - Started this morning when she stood up
+  - Bright red, soaked one pad (about half a cup)
+  - Painless; has now stopped
+  - First bleed this pregnancy
+- Associated:
+  - No tightenings or contractions
+  - No leaking fluid
+  - No injury, no recent sex
+  - Baby moving normally
+- Pregnancy:
+  - Second pregnancy; 20-week scan said "low-lying placenta"
+  - Blood group O negative; had anti-D injection at 28 weeks
+# Obstetric history:
+- First baby born by caesarean 3 years ago because labour "stopped progressing"
+- No complications after the caesarean
+# Medical history: Nil
+# Medications: Pregnancy multivitamin, iron tablet
+# Allergies: Nil known
+# Family history: Nil significant
+# Social history:
+- Lives 1 hour from the hospital
+- Partner works FIFO, currently away; 3-year-old son with her mum
+- No smoking, alcohol or drugs
+# Questions to ask the doctor:
+- "Can I still have a normal birth?"
+- "Do I have to stay in hospital?"
+- "Will I need a blood transfusion?"
+# Examination findings (examiner to give if asked):
+- HR 88, BP 115/70
+- Uterus soft, non-tender, fundal height 32 cm; CTG normal
+- Speculum: small amount of old blood at the cervix
+- No digital vaginal examination should be performed
+{footer}`,
+
+'rnh-c3':`# Profile:
+- Name: Sophie Nguyen
+- Age: 19-year-old
+- Gender: Female
+- Aboriginal or Torres Strait Islander: No
+- Setting: Antenatal clinic
+# Presenting complaint: 38 weeks pregnant with first baby; headaches for 2 days; protein +++ on urine dipstick.
+# Appearance and behaviour: Keen to leave, keep checking your phone. Agree to stay only if the risks are explained clearly.
+# History of presenting complaint:
+- Opening statement:
+  - "It's just a headache. I need to pick my sister up from the airport at 5."
+- Headache:
+  - Front of the head, 2 days, constant
+  - Not helped by paracetamol
+- Associated symptoms:
+  - Saw flashing spots in her vision this morning
+  - Mild pain under the right ribs
+  - Hands and face swollen for a week (rings tight)
+  - No vomiting, no fits, no shortness of breath
+- Baby:
+  - Moving normally
+  - No bleeding, no leaking fluid, no contractions
+# Obstetric history: First pregnancy; all checks normal until today
+# Medical history: Nil; never had high blood pressure
+# Medications: Pregnancy multivitamin
+# Allergies: Nil known
+# Family history: Mum had "high blood pressure in pregnancy"
+# Social history:
+- Lives with boyfriend; works in retail
+- No smoking, alcohol or drugs
+# Questions to ask the doctor:
+- "Can I just take something for the headache and go?"
+- "Is my baby in danger?"
+# Examination findings (examiner to give):
+- BP 162/104 (repeat 158/106), HR 90
+- Brisk reflexes with 2 beats of clonus
+- Tenderness under the right ribs
+- Fundal height 37 cm; CTG reassuring
+{footer}`,
+
+'rnh-c4':`# Profile:
+- Name: Kate Morris
+- Age: 33-year-old
+- Gender: Female
+- Aboriginal or Torres Strait Islander: No
+- Setting: Antenatal clinic
+# Presenting complaint: 36 weeks pregnant; ultrasound shows baby in breech (bottom-first) position. Previous caesarean.
+# Appearance and behaviour: Calm and well informed, but disappointed – you were hoping for a vaginal birth this time.
+# History of presenting complaint:
+- Opening statement:
+  - "The scan says the baby is upside down the wrong way. What does that mean for me?"
+- This pregnancy:
+  - Uncomplicated; no bleeding, no high blood pressure, no diabetes
+  - Baby moving well; no contractions or leaking fluid
+  - Scan: placenta at the front, normal fluid around the baby
+  - Blood group A positive
+# Obstetric history:
+- First baby 3 years ago: caesarean for "baby's heart rate dropping"
+- No complications after the caesarean; healed well
+- Had planned to try for a vaginal birth after caesarean (VBAC) this time
+# Medical history: Nil
+# Medications: Pregnancy multivitamin
+# Allergies: Nil known
+# Family history: Nil significant
+# Social history:
+- Married; works as a primary school teacher
+- No smoking, alcohol or drugs
+# Questions to ask the doctor:
+- "Can you turn the baby?"
+- "Is turning the baby safe for my scar?"
+- "Can I still have a vaginal birth?"
+{footer}`,
+
+'rnh-c5':`# Profile:
+- Name: Jess Carter
+- Age: 24-year-old
+- Gender: Female
+- Aboriginal or Torres Strait Islander: No
+- Setting: Rural hospital without an obstetric unit (nearest tertiary centre 2 hours away)
+# Presenting complaint: 33 weeks pregnant with first baby; regular painful tightenings every 5 minutes for 3 hours.
+# Appearance and behaviour: Frightened. Stop talking and breathe through a contraction every minute or so.
+# History of presenting complaint:
+- Opening statement:
+  - "It's too early. Is the baby coming now?"
+- Tightenings:
+  - Started 3 hours ago
+  - Every 5 minutes, lasting about 40 seconds, getting stronger
+  - Lower tummy and back
+- Associated:
+  - Small mucousy "show" today, no blood
+  - No gush or leak of fluid
+  - Burning when passing urine for 2 days, going more often
+  - No fever
+  - Baby moving well
+# Pregnancy:
+- First pregnancy; scans normal so far
+- Group B strep status not known (not tested yet)
+- Blood group O positive
+# Medical history: Nil
+# Medications: Pregnancy multivitamin
+# Allergies: Nil known
+# Family history: Nil significant
+# Social history:
+- Smokes 10 cigarettes a day
+- No alcohol or drugs
+- Partner works at the mine; he is driving down now
+# Questions to ask the doctor:
+- "Will my baby survive?"
+- "Can I have the baby here?"
+{footer}`,
+
+'rnh-c6':`# Profile:
+- Name: Mia Thompson
+- Age: 26-year-old
+- Gender: Female
+- Aboriginal or Torres Strait Islander: No
+- Setting: Emergency Department
+# Presenting complaint: Left lower abdominal pain for 6 hours; 7 weeks since last period; positive home pregnancy test.
+# Appearance and behaviour: Pale, sit very still holding the left side of your lower tummy. Wince if you move.
+# History of presenting complaint:
+- Opening statement:
+  - "The pain on my left side is getting worse, and now my shoulder hurts."
+- Pain:
+  - Left lower tummy, started 6 hours ago
+  - Sharp, constant, 7/10; worse in the last hour
+  - Right shoulder-tip pain started 30 minutes ago
+- Associated:
+  - Light brown spotting since yesterday
+  - Felt faint when she stood up
+  - Nauseated, no vomiting
+  - No urinary symptoms, no diarrhoea, no fever
+- Pregnancy:
+  - Last period 7 weeks ago, regular cycles
+  - Positive home test yesterday
+  - First pregnancy; not planned but wanted
+# Gynaecological history:
+- Treated for chlamydia 2 years ago
+- Copper IUD removed 6 months ago
+- Last cervical screening 1 year ago, normal
+# Medical history: Nil
+# Medications: Nil
+# Allergies: Nil known
+# Family history: Nil significant
+# Social history:
+- Lives with partner (Dan); works as a nurse's assistant
+- Social drinker; nothing since positive test; no smoking or drugs
+# Questions to ask the doctor:
+- "Am I losing the baby?"
+- "Will I be able to get pregnant again?"
+# Examination and results (examiner to give if asked):
+- HR 112, BP 96/60, RR 20, afebrile
+- Tender left lower abdomen with guarding; cervical motion tenderness
+- Serum beta-hCG 2,400 IU/L
+- Transvaginal ultrasound: empty uterus, left adnexal mass, free fluid in pouch of Douglas
+{footer}`,
+
+'rnh-c7':`# Profile:
+- Name: Laura Bennett
+- Age: 29-year-old
+- Gender: Female
+- Aboriginal or Torres Strait Islander: No
+- Setting: Antenatal clinic, 20 weeks pregnant
+# Presenting complaint: Wants to discuss a caesarean after a previous forceps birth with a third-degree tear.
+# Appearance and behaviour: Anxious and firm. You feel you were not listened to last time. Soften if the doctor acknowledges your experience.
+# History of presenting complaint:
+- Opening statement:
+  - "I am not going through that again. I want a caesarean."
+- Previous birth (2 years ago):
+  - Long labour, forceps delivery
+  - Third-degree tear
+  - Afterwards: could not control her bowels and had pain with sex
+  - Had a repair operation by the surgical team
+- Now:
+  - Still occasionally has to rush to the toilet for her bowels
+  - Sees a pelvic floor physio
+  - Ultrasound after repair showed a small remaining defect in the muscle
+- This pregnancy:
+  - Uncomplicated so far; 20-week scan normal
+  - Baby moving
+# Medical history: Nil; BMI 24
+# Medications: Pregnancy multivitamin
+# Allergies: Nil known
+# Family history: Nil significant
+# Social history:
+- Married; works as an office manager
+- Would like one more child after this one
+- No smoking, alcohol or drugs
+# Questions to ask the doctor:
+- "What are the risks of a caesarean for me and the baby?"
+- "Will it affect future pregnancies?"
+{footer}`,
+
+'rnh-c8':`# Profile:
+- Name: Chloe Adams
+- Age: 34-year-old
+- Gender: Female
+- Aboriginal or Torres Strait Islander: No
+- Setting: General practice
+# Presenting complaint: Here for cervical screening result: HPV 16/18 detected, cytology negative.
+# Appearance and behaviour: Shocked and worried. Become upset when you hear it is a virus spread by sex – you worry your husband has cheated.
+# History of presenting complaint:
+- Opening statement:
+  - "The receptionist said I needed to come in for my results. Is it cancer?"
+- Symptoms:
+  - No bleeding after sex or between periods
+  - No unusual discharge, no pelvic pain
+- Periods: regular, 28-day cycle; last period 2 weeks ago
+- Previous screening: 5 years ago, normal
+# Sexual history:
+- With husband for 10 years (married 8 years); monogamous
+- 4 partners before her husband
+- No previous STIs
+# Contraception: Combined pill
+# HPV vaccine: Not vaccinated (too old for the school program)
+# Medical history: Nil
+# Medications: Combined oral contraceptive pill
+# Allergies: Nil known
+# Family history: Nil significant; no cancers
+# Social history:
+- Smokes 5 cigarettes a day
+- Alcohol: a few glasses of wine on weekends
+- Works as a real estate agent
+- Planning to try for a baby next year
+# Questions to ask the doctor:
+- "Does this mean my husband cheated?"
+- "Do I have cancer?"
+- "Can I still have a baby?"
+{footer}`,
+
+'rnh-c9':`# Profile:
+- Name: Rachel Owen
+- Age: 30-year-old
+- Gender: Female
+- Aboriginal or Torres Strait Islander: No
+- Setting: Antenatal clinic
+# Presenting complaint: 40+5 weeks with first baby; obstetrician recommends induction of labour at 41 weeks.
+# Appearance and behaviour: Open-minded, polite, but wants good reasons before agreeing.
+# History of presenting complaint:
+- Opening statement:
+  - "Why can't I just wait for labour to start on its own?"
+- Pregnancy:
+  - First pregnancy, uncomplicated
+  - Baby moving well
+  - No bleeding, no leaking fluid, no contractions
+  - Doctor examined her today and said her cervix is "not ready yet" (Bishop score 3)
+- Birth plan:
+  - Hoping for a natural, drug-free birth; has done hypnobirthing classes
+# Medical history: Nil
+# Medications: Pregnancy multivitamin
+# Allergies: Nil known
+# Family history: Nil significant
+# Social history:
+- Married; works as a graphic designer
+- No smoking, alcohol or drugs
+# Questions to ask the doctor:
+- "What happens if I wait?"
+- "Does induction hurt more?"
+- "Will I end up with a caesarean?"
+{footer}`,
+
+'rnh-c10':`# Profile:
+- Name: Margaret Hill
+- Age: 62-year-old
+- Gender: Female
+- Aboriginal or Torres Strait Islander: No
+- Setting: General practice
+# Presenting complaint: Feeling of "something coming down" in the vagina for 6 months.
+# Appearance and behaviour: Embarrassed and quiet at first, look down. Open up if the doctor puts you at ease.
+# History of presenting complaint:
+- Opening statement:
+  - "It feels like I'm sitting on a ball, especially at the end of the day."
+- Bulge:
+  - Dragging feeling for 6 months
+  - Worse after standing or lifting her grandchildren; better lying down
+  - Can feel a bulge when washing
+- Bladder:
+  - Has to push the bulge back to empty her bladder fully
+  - Some urgency
+  - Leaks urine when coughing or sneezing
+  - No burning or blood in urine
+- Bowels:
+  - Mild constipation; strains
+- Bleeding:
+  - No vaginal bleeding or discharge
+- Sex:
+  - Sexually active with husband; finds it uncomfortable
+# Obstetric and gynaecological history:
+- 4 vaginal births; biggest baby 4.3 kg
+- Menopause at 52; never used hormone therapy
+- Last cervical screening 2 years ago, normal
+# Medical history:
+- Chronic cough (ex-smoker)
+- Overweight (BMI 31)
+# Medications: Nil regular
+# Allergies: Nil known
+# Family history: Mum had "a prolapse operation"
+# Social history:
+- Ex-smoker (quit 5 years ago, 30 pack-years)
+- Alcohol: 1–2 glasses of wine a week
+- Married, retired; looks after grandchildren 3 days a week
+# Questions to ask the doctor:
+- "Do I need surgery?"
+- "Is it cancer?"
+{footer}`,
+
+'rnh-c11':`# Profile:
+- Name: Sarah Patel
+- Age: 32-year-old
+- Gender: Female
+- Aboriginal or Torres Strait Islander: No
+- Setting: Emergency Department
+# Presenting complaint: 8 weeks pregnant; vaginal bleeding and lower abdominal cramping.
+# Appearance and behaviour: Tearful. Need time and empathy before giving lots of detail.
+# History of presenting complaint:
+- Opening statement:
+  - "I'm bleeding and I think I'm losing the baby."
+- Bleeding:
+  - Started this morning
+  - Heavier than a period; soaked 4 pads; passed some clots and "tissue"
+- Pain:
+  - Crampy, central lower tummy, 6/10, comes and goes
+- Associated:
+  - Not dizzy, no fainting
+  - No fever, no shoulder pain
+- Pregnancy:
+  - Last period 8 weeks ago; planned pregnancy
+  - Has not had a scan yet
+  - Blood group not known this pregnancy
+# Obstetric history:
+- One previous pregnancy: son (3), normal vaginal birth
+- No previous miscarriages
+# Medical history: Nil
+# Medications: Folic acid
+# Allergies: Nil known
+# Family history: Nil significant
+# Social history:
+- Married (husband on his way); works as a pharmacist
+- No smoking, alcohol or drugs
+# Questions to ask the doctor:
+- "Did I do something to cause this?"
+- "What happens now?"
+- "Can we try again?"
+# Examination and results (examiner to give if asked):
+- HR 84, BP 122/76
+- Abdomen soft, mild tenderness above the pubic bone
+- Speculum: cervix open, pregnancy tissue at the cervix, removed
+- Transvaginal ultrasound: incomplete miscarriage, retained products 22 mm
+{footer}`,
+
+'rnh-c12':`# Profile:
+- Name: Amy Clarke
+- Age: 27-year-old
+- Gender: Female
+- Aboriginal or Torres Strait Islander: No
+- Setting: Birth suite
+# Presenting complaint: 30 weeks pregnant with first baby; sudden gush of clear fluid 3 hours ago, still leaking.
+# Appearance and behaviour: Anxious but cooperative.
+# History of presenting complaint:
+- Opening statement:
+  - "My pants were soaked and it keeps trickling. Did my waters break?"
+- Fluid:
+  - Sudden gush 3 hours ago while cooking
+  - Clear, no smell, not blood-stained
+  - Still trickling; needed to change pads twice
+- Associated:
+  - No tightenings or contractions
+  - No bleeding
+  - No fever, no smelly discharge, no tummy pain
+  - No burning when passing urine
+  - Baby moving well
+- Pregnancy:
+  - First pregnancy; uncomplicated
+  - Group B strep status not known
+  - Blood group A positive
+# Medical history: Nil
+# Medications: Pregnancy multivitamin
+# Allergies: Nil known
+# Family history: Nil significant
+# Social history:
+- Lives with husband; works as a bank teller
+- No smoking, alcohol or drugs
+# Questions to ask the doctor:
+- "Will the baby come now?"
+- "How long do I stay in hospital?"
+# Examination and CTG (examiner to give):
+- T 36.8 °C, HR 82, BP 116/72
+- Sterile speculum: pool of clear fluid in the vagina; cervix closed; AmniSure positive
+- CTG: baseline 145, normal variability, accelerations present, no decelerations
+{footer}`,
+
+'rnh-c13':`# Profile:
+- Name: Linda Park
+- Age: 42-year-old
+- Gender: Female
+- Aboriginal or Torres Strait Islander: No
+- Setting: General practice
+# Presenting complaint: Periods much heavier over the last year.
+# Appearance and behaviour: Practical and direct. You want it fixed.
+# History of presenting complaint:
+- Opening statement:
+  - "I'm flooding through pads at work. It's embarrassing."
+- Periods:
+  - Every 28 days, regular; last for 8 days
+  - Days 1–3: change a super pad every hour; wears pad and tampon together
+  - Clots the size of 50-cent coins
+  - Has flooded through to her clothes at work
+  - Period pain mild
+- No bleeding between periods or after sex
+- Symptoms of blood loss:
+  - Tired all the time
+  - Short of breath going up stairs
+- Negatives (if asked):
+  - No easy bruising, nose bleeds or bleeding after dental work
+  - No weight change, no feeling cold, no hot flushes
+  - No pressure symptoms or bloating
+# Gynaecological history:
+- 3 children (all vaginal births); tubes tied after third – family complete
+- Last cervical screening 2 years ago, normal
+# Medical history: Nil
+# Medications: Nil; not on blood thinners
+# Allergies: Nil known
+# Family history: Mum had a hysterectomy for "fibroids"
+# Social history:
+- Primary school teacher; married
+- Alcohol: 2 glasses of wine a week; no smoking
+# Questions to ask the doctor:
+- "Do I need a hysterectomy?"
+- "Is it cancer?"
+{footer}`,
+
+'rnh-c14':`# Profile:
+- Name: Ben Jordan
+- Age: 38-year-old
+- Gender: Male
+- Aboriginal or Torres Strait Islander: No
+- Setting: General practice
+# Presenting complaint: Wants to discuss permanent contraception; he and his wife (Kylie, 36) have 3 children and do not want more.
+# Appearance and behaviour: Make jokes to hide your nerves (e.g. "Will I still be a man?").
+# History of presenting complaint:
+- Opening statement:
+  - "My wife's sick of the pill, and we're done with kids. What's the snip involve?"
+- Family:
+  - Children aged 9, 6 and 2
+  - Relationship stable; both agree they are finished having children
+  - Has discussed it with Kylie; she would prefer he has it done
+- Kylie's history:
+  - 2 vaginal births and 1 caesarean; on the combined pill
+- Ben's health:
+  - No problems or surgery to the testicles
+  - No hernias
+  - No bleeding or clotting problems
+# Medical history: Nil
+# Medications: Nil
+# Allergies: Nil known
+# Family history: Nil significant
+# Social history:
+- Works as an electrician
+- Alcohol: 6 beers on weekends; no smoking or drugs
+# Questions to ask the doctor:
+- "Will it affect my sex life?"
+- "When can we stop using other contraception?"
+- "Can it be reversed?"
+{footer}`,
+
+'rnh-c15':`# Profile:
+- Name: Nicole Ward
+- Age: 38-year-old
+- Gender: Female
+- Aboriginal or Torres Strait Islander: No
+- Setting: General practice
+# Presenting complaint: Bleeding between periods for 3 months; ultrasound shows a 9 mm polyp in the lining of the uterus.
+# Appearance and behaviour: Anxious; worried it is cancer.
+# History of presenting complaint:
+- Opening statement:
+  - "The scan found something. Should I be worried?"
+- Bleeding:
+  - Spotting in the middle of her cycle and after sex for 3 months
+  - Light, brown–red, lasts 1–2 days
+- Periods:
+  - Regular, every 28 days, 5 days, not heavy; not painful
+- Negatives:
+  - No pelvic pain or discharge
+  - No weight loss
+  - No hot flushes
+# Gynaecological history:
+- Cervical screening 1 year ago: HPV not detected
+- One child (5), vaginal birth
+- Uses condoms; may want another child
+- Not pregnant
+# Medical history: Nil
+# Medications: Nil; not on tamoxifen or hormones
+# Allergies: Nil known
+# Family history: Nil significant; no bowel, uterine or breast cancers
+# Social history:
+- Married; works as a dental nurse
+- No smoking; alcohol 1–2 drinks a week
+# Questions to ask the doctor:
+- "Is it cancer?"
+- "Will removing it affect having a baby?"
+{footer}`,
+
+'rnh-c16':`# Profile:
+- Name: Bec Fraser
+- Age: 37-year-old
+- Gender: Female
+- Aboriginal or Torres Strait Islander: No
+- Setting: General practice
+# Presenting complaint: 9 weeks pregnant with first baby; wants to know about tests for Down syndrome and other conditions.
+# Appearance and behaviour: Organised and analytical (you're an accountant). Ask for clear numbers.
+# History of presenting complaint:
+- Opening statement:
+  - "My friend had a test that told her the sex at 10 weeks. What tests should I have?"
+- Pregnancy:
+  - Planned; took 2 years to conceive
+  - Last period 9 weeks ago; dating scan booked
+  - Feeling well, some nausea
+- Thoughts about testing:
+  - Not sure what she would do with a high-risk result
+  - Would like as much information as possible
+# Medical history: Nil
+# Medications: Folic acid and iodine
+# Allergies: Nil known
+# Family history: No known genetic conditions in her or partner's family
+# Social history:
+- Partner (Sam) is 40
+- Works as an accountant; private health insurance
+- No smoking, alcohol or drugs
+# Questions to ask the doctor:
+- "What's the difference between screening and diagnosis?"
+- "Do any of the tests risk a miscarriage?"
+- "How much does it cost?"
+{footer}`,
+
+'rnh-c17':`# Profile:
+- Name: Patricia Young
+- Age: 64-year-old
+- Gender: Female
+- Aboriginal or Torres Strait Islander: No
+- Setting: General practice
+# Presenting complaint: Vaginal bleeding twice in the past month; periods stopped 12 years ago.
+# Appearance and behaviour: Matter-of-fact (retired nurse) but worried underneath.
+# History of presenting complaint:
+- Opening statement:
+  - "I thought I was finished with all that. I've had some spotting."
+- Bleeding:
+  - Two episodes of light pink spotting in 4 weeks
+  - Each lasted 1 day
+  - Not after sex
+- Negatives:
+  - No pain, no discharge
+  - No weight loss
+  - No bowel or bladder changes
+# Gynaecological history:
+- Menopause at 52; never used hormone therapy
+- Never been pregnant
+- Last cervical screening 3 years ago, normal
+# Medical history:
+- Type 2 diabetes
+- High blood pressure
+- Obesity (BMI 36)
+- No breast cancer
+# Medications: Metformin 1 g twice daily; perindopril 5 mg daily; not on tamoxifen
+# Allergies: Nil known
+# Family history: Sister had bowel cancer at 58
+# Social history:
+- Retired nurse; lives with husband
+- Never smoked; alcohol 1 glass of wine a week
+# Questions to ask the doctor:
+- "Is it cancer?"
+- "Do I need surgery?"
+{footer}`,
+
+'rnh-c18':`# Profile:
+- Name: Zoe Martin
+- Age: 22-year-old
+- Gender: Female
+- Aboriginal or Torres Strait Islander: No
+- Setting: General practice
+# Presenting complaint: Wants to discuss contraception; interested in "the rod in the arm".
+# Appearance and behaviour: Relaxed and chatty.
+# History of presenting complaint:
+- Opening statement:
+  - "I keep forgetting the pill. My friend has the rod. Is that good?"
+- Current contraception:
+  - Combined pill for 2 years
+  - Misses 2–3 pills a month
+- Periods:
+  - Last period 2 weeks ago, normal
+  - Regular, not heavy, mild pain
+- Pregnancy risk:
+  - Last unprotected sex 10 days ago
+# Sexual history:
+- One regular male partner for 6 months
+- Uses condoms "sometimes"
+- Last STI check 1 year ago, all negative
+- No discharge, pain or bleeding after sex
+# Medical history:
+- Migraines without aura (no flashing lights or numbness before them)
+- No clots in legs or lungs
+# Medications: Combined pill
+# Allergies: Nil known
+# Family history: Nil significant; no clotting problems
+# Social history:
+- University student (psychology)
+- Smokes socially on weekends
+- Alcohol: 4–5 drinks on Saturday nights; no drugs
+# Questions to ask the doctor:
+- "Does it hurt going in?"
+- "Will it make me put on weight?"
+- "What about my periods?"
+{footer}`,
+});
+</script>
 <script>
 
 /* Extended simulated patient scripts and practice titles; Master Checklist is untouched. */
@@ -1588,7 +2836,35 @@ function structuredAnswers(c){
  });
  return HISTORY_SECTIONS.filter(([key])=>groups[key].length).map(([key,title])=>`<section class="hx-section hx-${key}"><h3>${esc(title)}</h3><ul class="hx-items">${groups[key].map(item=>`<li>${item.label?`<strong>${esc(item.label)}:</strong> `:''}${esc(item.value)}</li>`).join('')}</ul></section>`).join('');
 }
+// Patient scripts: "# Heading" or "# Heading: value", "- bullet", "  - sub-bullet", "> note".
+function psInline(t){return esc(t).replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/&quot;(.+?)&quot;/g,'<em>&quot;$1&quot;</em>')}
+function psItem(t,d){
+ if(/:$/.test(t))return `<strong>${psInline(t.slice(0,-1))}:</strong>`;
+ const m=d===1&&t.match(/^([^:"“]{1,48}):\s(.*)$/);
+ return m?`<strong>${psInline(m[1])}:</strong> ${psInline(m[2])}`:psInline(t);
+}
+function psHtml(src){
+ let html='',lvl=0;
+ const close=to=>{while(lvl>to){html+='</li></ul>';lvl--}};
+ src.split('\n').forEach(raw=>{
+  const line=raw.replace(/\s+$/,'');if(!line.trim())return;
+  const m=line.match(/^( *)- (.*)$/);
+  if(m){const d=m[1].length>=2?2:1;
+   if(d>lvl){while(lvl<d){html+='<ul class="ps-list">';lvl++}}else{close(d);html+='</li>'}
+   html+='<li>'+psItem(m[2],d);return}
+  close(0);const t=line.trim();
+  if(t.startsWith('# ')){const h=t.slice(2),i=h.indexOf(': ');
+   html+=i>-1?`<p class="ps-h"><strong>${psInline(h.slice(0,i))}:</strong> ${psInline(h.slice(i+2))}</p>`:`<p class="ps-h"><strong>${psInline(h.replace(/:$/,''))}:</strong></p>`}
+  else if(t.startsWith('> '))html+=`<p class="ps-note"><em>${psInline(t.slice(2))}</em></p>`;
+  else html+=`<p>${psInline(t)}</p>`;
+ });
+ close(0);return html;
+}
+const PS_FOOTER='> The candidate may ask further questions of you – use only the provided history above.\n> The candidate should interact with you using non-medical terminology. Please interrupt the candidate if they use medical terminology that would not be clearly understood by the lay public.';
 function volunteerScript(c){
+ if(PS[c.id])return `<div class="card volunteer-card">
+  <div class="volunteer-card-title"><span class="lbl">Patient script</span><span class="type">Volunteer copy</span></div>
+  <div class="ps">${psHtml(PS[c.id].replace('{footer}',PS_FOOTER))}</div></div>`;
  const sc=c.script||{};
  return `<div class="card volunteer-card">
   <div class="volunteer-card-title"><span class="lbl">Simulated patient script</span><span class="type">Volunteer copy</span></div>
