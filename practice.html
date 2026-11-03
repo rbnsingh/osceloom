@@ -10145,13 +10145,13 @@ function markView(c){
    <div class="casehead" style="--dc:var(${c.dom.c})"><div class="meta"><span class="code">${c.dom.code}</span>${types(c)}</div><h1>${esc(c.t)}</h1><span class="muted">Script and marking sheet</span></div>
    ${volunteerScript(c)}
    ${MODEL[c.id]?`<div class="card model-answer"><span class="lbl">Model answer · diagnosis and management</span><div class="ps">${psHtml(MODEL[c.id])}</div></div>`:''}
+   ${c.eq&&c.eq.length?`<div class="card answers"><span class="lbl">Examiner questions · model answers</span>${c.eq.map(x=>`<div class="qa"><b>${esc(x[0])}</b><span>${esc(x[1])}</span></div>`).join('')}</div>`:''}
    <div class="card">
      <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap"><span class="lbl">Marking checklist</span><button class="btn" data-act="clear">Clear marks</button></div>
      <div class="mtable">${rows}${seg('g','Global rating (examiner)')}${seg('e','Empathy rating (patient)')}
        <div class="total"><span>Total</span><span class="big" id="tot">${totalOf(c)} / ${max}</span></div></div>
    </div>
    ${!MODEL[c.id]&&EXAMINER_IMPRESSIONS[c.id]?`<div class="card answers examiner-impression"><span class="lbl">Expected diagnosis or clinical impression</span><div class="qa"><b>Most likely diagnosis / expected clinical conclusion</b><span>${esc(EXAMINER_IMPRESSIONS[c.id].impression)}</span></div><div class="qa"><b>Key supporting findings</b><span>${esc(EXAMINER_IMPRESSIONS[c.id].support)}</span></div><div class="qa"><b>Relevant differentials or alternatives</b><span>${esc(EXAMINER_IMPRESSIONS[c.id].alternatives)}</span></div><div class="qa"><b>Important exclusions and safety priorities</b><span>${esc(EXAMINER_IMPRESSIONS[c.id].priority)}</span></div><p class="muted" style="font-size:.82rem;margin:12px 0 0">Examiner reference only. Not an additional scored checklist item.</p></div>`:''}
-   ${c.eq&&c.eq.length?`<div class="card answers"><span class="lbl">Examiner questions · model answers</span>${c.eq.map(x=>`<div class="qa"><b>${esc(x[0])}</b><span>${esc(x[1])}</span></div>`).join('')}</div>`:''}
    ${c.ref?`<p class="muted" style="font-size:.8rem;margin:0">Based on: ${esc(c.ref)}</p>`:''}
    ${nav(c).replace(/href="#([a-z0-9-]+)"/g,'href="#$1-mark"')}`;
   paintTimer();
