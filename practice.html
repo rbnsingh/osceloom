@@ -3,7 +3,25 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px system-ui,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style>
+<style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px system-ui,sans-serif}img{max-width:100%}[hidden]{display:none!important}
+/* Clear, scannable volunteer history sections */
+.volunteer-card{gap:0;padding:0;overflow:hidden}
+.volunteer-card-title{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 20px;background:var(--surface-2);border-bottom:1px solid var(--line)}
+.hx-section{padding:18px 20px;border-bottom:1px solid var(--line)}
+.hx-section:last-child{border-bottom:0}
+.hx-section h3{font-family:var(--f-display);font-size:1.08rem;line-height:1.35;font-weight:800;margin:0 0 12px;color:var(--fg)}
+.hx-section p{margin:0 0 8px;line-height:1.65}
+.hx-section p:last-child{margin-bottom:0}
+.hx-section .quote{font-size:1.05rem;border-left:3px solid var(--accent);padding:10px 14px;margin:0 0 12px;background:var(--accent-soft);border-radius:0 8px 8px 0}
+.hx-items{list-style:disc;margin:0;padding-left:22px;display:flex;flex-direction:column;gap:10px}
+.hx-items li{padding-left:3px;line-height:1.6;overflow-wrap:anywhere}
+.hx-items li::marker{color:var(--accent)}
+.hx-items strong{font-weight:700;color:var(--fg)}
+.hx-note{color:var(--muted);font-size:.88rem}
+.hx-guide{background:var(--surface-2)}
+.hx-profile{background:var(--surface-2)}
+@media(max-width:520px){.hx-section{padding:16px}.volunteer-card-title{padding:14px 16px}.hx-items{padding-left:19px;gap:12px}}
+</style>
 </head>
 <body>
 <title>OSCE Practice Cases</title>
@@ -1527,6 +1545,64 @@ function caseView(c){
    ${nav(c)}`;
   paintTimer();
 }
+/* Volunteer script layout: preserve every source answer, group by history domain. */
+const HISTORY_SECTIONS=[
+ ['present','History of presenting complaint'],
+ ['systems','Systems review and red flags'],
+ ['past','Past medical and surgical history'],
+ ['meds','Medications and allergies'],
+ ['family','Family history'],
+ ['social','Social and personal history'],
+ ['paeds','Paediatric history'],
+ ['obgyn','Obstetric, gynaecological and sexual history'],
+ ['mental','Psychiatric and risk history'],
+ ['ice','Ideas, concerns and expectations'],
+ ['closing','Closing and safety netting']
+];
+function historyGroup(label,domain){
+ const x=label.toLowerCase();
+ if(/getting to know|patient.s own explanation|main worry|what they want|ideas|concern|expectation|daily life/.test(x))return 'ice';
+ if(/birth|neonatal|milestone|development|immunis|vaccin|feeding|growth|school|childhood|paediatric|pediatric/.test(x))return 'paeds';
+ if(/pregnan|antenatal|obstetric|menstrual|period|contracept|sexual|gynaec|gynecol/.test(x))return 'obgyn';
+ if(/suicid|self.harm|psych|mood history|mental health history/.test(x))return 'mental';
+ if(/medicin|medication|drug allerg|regular tablets|nonprescription|supplement|treatments already tried/.test(x))return 'meds';
+ if(/family history|familial|inherited|relative/.test(x))return 'family';
+ if(/past illnesses|previous operations|hospital admission|medical history|surgery/.test(x))return 'past';
+ if(/smok|vap|alcohol|recreational|home and support|work or study|occupation|living|social history/.test(x))return 'social';
+ if(/closing question|follow.up|safety.net/.test(x))return 'closing';
+ if(/other symptoms|safety and emergency|review of systems|red flag/.test(x))return 'systems';
+ return 'present';
+}
+function structuredAnswers(c){
+ const src=c.script||{},groups={};HISTORY_SECTIONS.forEach(([key])=>groups[key]=[]);
+ (src.ask||[]).forEach(v=>{
+  // Original source answers retain their full wording and original order.
+  const label=String(v).split(':')[0];
+  const key=historyGroup(label,c.dom.code);
+  groups[key].push({value:String(v),original:true});
+ });
+ (c.additionalScript||[]).forEach(v=>{
+  const split=String(v).indexOf(' | '),label=split<0?'Further information':v.slice(0,split),answer=split<0?v:v.slice(split+3);
+  groups[historyGroup(label,c.dom.code)].push({label, value:answer,original:false});
+ });
+ return HISTORY_SECTIONS.filter(([key])=>groups[key].length).map(([key,title])=>`<section class="hx-section hx-${key}"><h3>${esc(title)}</h3><ul class="hx-items">${groups[key].map(item=>`<li>${item.label?`<strong>${esc(item.label)}:</strong> `:''}${esc(item.value)}</li>`).join('')}</ul></section>`).join('');
+}
+function volunteerScript(c){
+ const sc=c.script||{};
+ return `<div class="card volunteer-card">
+  <div class="volunteer-card-title"><span class="lbl">Simulated patient script</span><span class="type">Volunteer copy</span></div>
+  <section class="hx-section hx-profile"><h3>Patient profile</h3>
+    ${sc.who?`<p><strong>Patient or caregiver:</strong> ${esc(sc.who)}</p>`:''}
+    <p><strong>Clinical setting:</strong> ${esc(c.role||'Refer to the station instructions')}</p>
+  </section>
+  ${sc.open?`<section class="hx-section hx-opening"><h3>Opening statement</h3><p class="quote">“${esc(sc.open)}”</p><p class="hx-note">Say this naturally at the beginning. Reveal the remaining information when the student asks the relevant questions.</p></section>`:''}
+  ${sc.act?`<section class="hx-section"><h3>How to portray the patient</h3><p>${esc(sc.act)}</p></section>`:''}
+  ${structuredAnswers(c)}
+  ${sc.raise&&sc.raise.length?`<section class="hx-section hx-ice"><h3>Concerns and questions to raise</h3><ul class="hx-items">${sc.raise.map(x=>`<li>“${esc(x)}”</li>`).join('')}</ul></section>`:''}
+  ${sc.fx&&sc.fx.length?`<section class="hx-section"><h3>Examination findings for the examiner</h3><ul class="hx-items">${sc.fx.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></section>`:''}
+  ${c.volunteerGuide?`<section class="hx-section hx-guide"><h3>Instructions for the volunteer</h3><p>${esc(c.volunteerGuide)}</p></section>`:''}
+ </div>`;
+}
 function markView(c){
   if(T.id!==c.id)resetTimer(c.id);
   const s=getS(c.id),max=maxOf(c);
@@ -1537,17 +1613,7 @@ function markView(c){
    <div class="topbar"><a href="#${c.id}">← Back to case</a><span class="muted sync" id="sync">${syncText}</span></div>
    ${clockHtml(true)}
    <div class="casehead" style="--dc:var(${c.dom.c})"><div class="meta"><span class="code">${c.dom.code}</span>${types(c)}</div><h1>${esc(c.t)}</h1><span class="muted">Script and marking sheet</span></div>
-   <div class="card">
-     <span class="lbl">Patient script</span>
-     ${sc.who?`<div><b>${esc(sc.who)}</b></div>`:''}
-     ${sc.open?`<p class="quote">“${esc(sc.open)}”</p>`:''}
-     ${sc.act?`<div><span class="lbl">How to play it</span><div>${esc(sc.act)}</div></div>`:''}
-     ${sc.ask&&sc.ask.length?`<div><span class="lbl">Give only if asked</span><ul class="plain">${sc.ask.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div>`:''}
-     ${c.volunteerGuide?`<div><span class="lbl">Volunteer instructions</span><p>${esc(c.volunteerGuide)}</p></div>`:''}
-     ${c.additionalScript&&c.additionalScript.length?`<div><span class="lbl">Further questions and complete background history</span><p class="muted" style="font-size:.85rem">Read case specific answers above first. These defaults only apply where the original scenario does not specify another answer.</p><ul class="plain">${c.additionalScript.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div>`:''}
-     ${sc.raise&&sc.raise.length?`<div><span class="lbl">Concerns and questions to raise</span><ul class="plain">${sc.raise.map(x=>`<li>“${esc(x)}”</li>`).join('')}</ul></div>`:''}
-     ${sc.fx&&sc.fx.length?`<div><span class="lbl">Examiner gives these findings when asked</span><ul class="plain">${sc.fx.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div>`:''}
-   </div>
+   ${volunteerScript(c)}
    <div class="card">
      <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap"><span class="lbl">Marking checklist</span><button class="btn" data-act="clear">Clear marks</button></div>
      <div class="mtable">${rows}${seg('g','Global rating (examiner)')}${seg('e','Empathy rating (patient)')}
