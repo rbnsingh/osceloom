@@ -1,0 +1,350 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px system-ui,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+<title>OSCE Master Checklist</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Atkinson+Hyperlegible:wght@400;700&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Layout: sticky progress header over a single reading column of domain panels; each case is a tick row that expands to its notes. */
+:root{
+  --bg:#eef2f3; --surface:#ffffff; --surface-2:#f5f8f8; --line:#d9e1e3;
+  --fg:#16252b; --muted:#5b6d74; --accent:#0f6e7a; --accent-soft:#d6ecee;
+  --done:#2c8a55; --done-soft:#e3f3e9; --hot:#b4471f; --hot-soft:#fbe7dd;
+  --c-rnh:#c2417a; --c-gp:#2f6fc0; --c-ah2:#c4701a; --c-cah:#7b4fc4; --c-mh:#13877a; --c-ah1:#c23a3a;
+  --f-display:"Bricolage Grotesque",ui-sans-serif,system-ui,sans-serif;
+  --f-body:"Atkinson Hyperlegible",ui-sans-serif,system-ui,sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0e1619; --surface:#152126; --surface-2:#1a2930; --line:#26383f;
+  --fg:#e3ecee; --muted:#93a7ad; --accent:#5cc3cf; --accent-soft:#183c42;
+  --done:#5ccb8a; --done-soft:#173326; --hot:#f08a5d; --hot-soft:#3a2219;
+  --c-rnh:#ec7aab; --c-gp:#73a6ec; --c-ah2:#eba35a; --c-cah:#ad8bf0; --c-mh:#4fcfbf; --c-ah1:#f07878;
+  color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0e1619; --surface:#152126; --surface-2:#1a2930; --line:#26383f;
+  --fg:#e3ecee; --muted:#93a7ad; --accent:#5cc3cf; --accent-soft:#183c42;
+  --done:#5ccb8a; --done-soft:#173326; --hot:#f08a5d; --hot-soft:#3a2219;
+  --c-rnh:#ec7aab; --c-gp:#73a6ec; --c-ah2:#eba35a; --c-cah:#ad8bf0; --c-mh:#4fcfbf; --c-ah1:#f07878;
+  color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--f-body);font-size:15px;line-height:1.5}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+.wrap{max-width:820px;margin:0 auto;padding-block:20px 48px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:20px}
+
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px 18px;display:flex;flex-direction:column;gap:12px;box-shadow:0 6px 20px -14px rgba(10,40,50,.35)}
+.head-row{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap}
+h1{font-family:var(--f-display);font-weight:800;font-size:1.55rem;letter-spacing:-.01em;margin:0;line-height:1.1;text-wrap:balance}
+.sub{color:var(--muted);font-size:.85rem;margin-top:2px}
+.score{text-align:right;font-variant-numeric:tabular-nums}
+.score b{font-family:var(--f-display);font-weight:800;font-size:1.9rem;color:var(--accent);line-height:1}
+.score span{display:block;font-size:.8rem;color:var(--muted)}
+.bar{display:flex;height:10px;border-radius:99px;overflow:hidden;background:var(--surface-2);border:1px solid var(--line)}
+.bar i{display:block;height:100%;transition:width .4s ease}
+.controls{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.controls input[type=search]{flex:1 1 180px;min-width:0;font:inherit;font-size:.9rem;padding:7px 11px;border:1px solid var(--line);border-radius:9px;background:var(--surface-2);color:var(--fg)}
+.chipbtn{font:inherit;font-size:.8rem;font-weight:700;padding:6px 10px;border-radius:99px;border:1px solid var(--line);background:var(--surface);color:var(--muted);cursor:pointer;white-space:nowrap}
+.chipbtn[aria-pressed="true"]{background:var(--accent-soft);color:var(--accent);border-color:transparent}
+.sync{font-size:.75rem;color:var(--muted)}
+
+section.domain{background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.dhead{display:flex;align-items:center;gap:12px;padding:14px 16px;border-bottom:1px solid var(--line)}
+.code{font-family:var(--f-mono);font-size:.75rem;font-weight:500;padding:4px 7px;border-radius:6px;color:var(--surface);background:var(--dc)}
+.dhead h2{font-family:var(--f-display);font-weight:600;font-size:1.1rem;margin:0;flex:1;min-width:0}
+.dcount{font-family:var(--f-mono);font-size:.8rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.dcount.full{color:var(--done)}
+.minibar{height:3px;background:var(--surface-2)}
+.minibar i{display:block;height:100%;background:var(--dc);transition:width .4s ease}
+.kind{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:var(--muted);padding:8px 16px;background:var(--surface-2);border-bottom:1px solid var(--line)}
+
+.item{border-bottom:1px solid var(--line)}
+.item:last-child{border-bottom:0}
+.item.done{background:var(--done-soft)}
+.row{display:flex;align-items:flex-start;gap:12px;padding:12px 16px}
+.tick{flex:none;width:24px;height:24px;margin-top:1px;border-radius:50%;border:2px solid var(--line);background:var(--surface);cursor:pointer;display:grid;place-items:center;padding:0}
+.tick svg{opacity:0}
+.done .tick{background:var(--done);border-color:var(--done)}
+.done .tick svg{opacity:1}
+.tick:focus-visible,.toggle:focus-visible,.chipbtn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.toggle{flex:1;min-width:0;display:flex;align-items:flex-start;justify-content:space-between;gap:10px;background:none;border:0;padding:0;font:inherit;color:inherit;text-align:left;cursor:pointer}
+.tmain{min-width:0;display:flex;flex-direction:column;gap:5px}
+.ttl{font-weight:700;font-size:.97rem}
+.done .ttl{color:var(--muted);text-decoration:line-through;text-decoration-thickness:1px}
+.meta{display:flex;gap:6px;flex-wrap:wrap}
+.tag{font-family:var(--f-mono);font-size:.7rem;padding:2px 7px;border-radius:5px;background:var(--surface-2);color:var(--muted);border:1px solid var(--line)}
+.tag.rep{background:var(--hot-soft);color:var(--hot);border-color:transparent}
+.chev{flex:none;color:var(--muted);transition:transform .2s;margin-top:2px}
+.open .chev{transform:rotate(180deg)}
+.notes{padding:0 16px 14px 52px}
+.notes ul{margin:0;padding:0 0 0 2px;list-style:none;display:flex;flex-direction:column;gap:5px;border-left:2px solid var(--dc);padding-left:12px}
+.notes li{font-size:.9rem;color:var(--fg)}
+.notes li.mn{font-family:var(--f-mono);font-size:.8rem;color:var(--muted)}
+.prac{flex:none;align-self:center;font-size:.78rem;font-weight:700;text-decoration:none;color:var(--accent);background:var(--accent-soft);padding:5px 10px;border-radius:99px}
+.prac:hover{filter:brightness(.95)}
+.prac:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.empty{padding:24px 16px;text-align:center;color:var(--muted);font-size:.9rem}
+.reset{align-self:center;font:inherit;font-size:.8rem;color:var(--muted);background:none;border:1px dashed var(--line);border-radius:8px;padding:6px 12px;cursor:pointer}
+.confirm{display:flex;gap:8px;align-items:center;justify-content:center;flex-wrap:wrap;font-size:.85rem}
+.confirm button{font:inherit;font-size:.8rem;font-weight:700;padding:6px 12px;border-radius:8px;border:1px solid var(--line);background:var(--surface);color:var(--fg);cursor:pointer}
+.confirm .danger{background:var(--hot);color:var(--surface);border-color:transparent}
+@media (max-width:480px){h1{font-size:1.3rem}.score b{font-size:1.5rem}.notes{padding-left:16px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <div class="head-row">
+      <div>
+        <h1>OSCE Master Checklist</h1>
+        <div class="sub">High-yield cases 2011–2023 · <a href="practice.html" style="color:var(--accent);font-weight:700">Practice cases →</a> · <span class="sync" id="sync">Saved in this browser</span></div>
+      </div>
+      <div class="score"><b id="pct">0%</b><span id="cnt">0 / 0 completed</span></div>
+    </div>
+    <div class="bar" id="bar" aria-hidden="true"></div>
+    <div class="controls">
+      <input type="search" id="q" placeholder="Search cases or years…" aria-label="Search cases">
+      <button class="chipbtn" id="f-todo" aria-pressed="false">Hide done</button>
+      <button class="chipbtn" id="f-rep" aria-pressed="false">Repeats only</button>
+      <button class="chipbtn" id="f-open" aria-pressed="false">Expand all</button>
+    </div>
+  </header>
+  <main id="list" style="display:flex;flex-direction:column;gap:20px"></main>
+  <div id="resetZone" style="display:flex;justify-content:center"></div>
+</div>
+
+<script>
+const D=[
+{id:'rnh',code:'RNH',title:'Reproductive & Neonatal Health',c:'--c-rnh',clinical:[
+['rnh-c1','Postnatal Visit (2012)',['First postnatal visit, immunisation, CST result','Take focused history and address concerns']],
+['rnh-c2','Placenta Previa (x2 Repeats)',['2013: Placenta previa general case','2019: 32K APH + placenta previa. Hx, explain USS, mx']],
+['rnh-c3','Pre-eclampsia (x2 Repeats)',['2011: 36+5K rising BP + swelling. Focused Hx, bedside tests, admit, bloods (?HELLP), Mx','2014: Manual BP reading, explain diagnosis and mx plan']],
+['rnh-c4','Breech Delivery (2015)',['36K planning ECV vs Elective CS','Explain risks/benefits to patient']],
+['rnh-c5','Preterm Labour (PTL) (2016)',['33K contractions no ROM. Rural.','Hx, exam, Ix, Mx + transfer plan']],
+['rnh-c6','Ectopic Pregnancy (2017)',['Focus on Hx, Ex, Dx, Mx','Assess for signs of rupture']],
+['rnh-c7','LSCS Counselling (2018)',['20K hx of 3rd degree perineal tear','Counselling for next delivery']],
+['rnh-c8','Cervical Screening Test (CST) (x2 Repeats)',['2014: Vaginal discharge, performs CST + STI hx','2019: CST +ve HPV18']],
+['rnh-c9','Postdates (2020)',['40K Induction of labour','Explain procedure and indications']],
+['rnh-c10','Vaginal Prolapse (2021)',['Hx + mx options (conservative vs surgical)']],
+['rnh-c11','Miscarriage (2022)',['Central abdo pain + PV bleed','Hx + Ix + Mx options']],
+['rnh-c12','PPROM (2023)',['Focused Hx, interpret exam findings and CTG','Formulate Mx']],
+['rnh-c13','Menorrhagia (2012)',['Hx, Ix, Mx (medical vs surgical)']],
+['rnh-c14','Sterilisation Counselling (x3 Repeats)',['2011: 35 YO M wants vasectomy. Focused Hx, counselling + female alternatives','2013: Male vs female sterilisations','2016: Vasectomy counselling']],
+['rnh-c15','Abnormal Uterine Bleeding (AUB) (2015)',['Non-malignant polyp on USS','Explain findings and mx']],
+['rnh-c16','Foetal Anomaly Testing (2017)',['Explain CFTS, morphology, NIPT, CVS, amniocentesis']],
+['rnh-c17','Postmenopausal Bleeding (PMB) (2018)',['Hx, Dx, Ix (exclude endometrial ca)']],
+['rnh-c18','Contraception (2023)',['Contraception-focused sexual Hx','Explain all types, specific Implanon counselling']]],exams:[]},
+{id:'gp',code:'GP',title:'General Practice',c:'--c-gp',clinical:[
+['gp-c1','Migraine (2013)',['Take focused Hx, rule out red flags']],
+['gp-c2','Paediatric Knee Pain (2014)',['Young girl, Osgood Schlatter','X-ray interpretation, mx']],
+['gp-c3','HSIL on CST (2015)',['Patient wants to have a child','Counselling and referral']],
+['gp-c4','Sore Throat (2018)',['Cough + fever, wants abx','Centor criteria, viral education']],
+['gp-c5','Preventative Health (2019)',['67 YO M, cough, stepped on rusty nail','Tetanus check, snap screen']],
+['gp-c6','Asthma (x2 Repeats)',['2012: Asthma education, care of inhalers','2020: Asthma hx action plan, compliance']],
+['gp-c7','Back Pain (2021)',['List Ix + interpret back x-ray compression fracture','Ddx formulation']],
+['gp-c8','Sprained Ankle (2022)',['Ottawa Ankle rules','Hx, decide on X-ray, Mx']],
+['gp-c9','Melanoma (2013)',['Recognise pigmented lesion + mx (excision)']],
+['gp-c10','Primary Dysmenorrhea (2014)',['Hx, Ix, mx options + OCP counselling']],
+['gp-c11','EOCOPD on T2DM (2015)',['Task: call aboriginal liaison officer','Follow up plan formulation']],
+['gp-c12','Headache – Pituitary Tumour (2011)',['Older man, morning/nocturnal headaches + dizziness, hypothyroid features','DDx of raised ICP','Focused CN exam (II, III, IV, VI) + brief endocrine exam']]],exams:[
+['gp-e1','Vestibular Exams (2012)',['Dix Hallpike, Romberg’s']],
+['gp-e2','Acute Back Pain (2016)',['With focal neurology','?disc prolapse exam + mx']],
+['gp-e3','Lower Limb Vascular Exam (2017)',['Peripheral arterial disease focus']],
+['gp-e4','Shoulder Examination (x2 Repeats)',['2018: 53 YO hx + exam. Need surgery?','2023: Shoulder Hx and Ex, explain Mx']],
+['gp-e5','Diabetic Neuropathy (2016)',['Numbness + pain feet','Lower limb Exam + Mx']],
+['gp-e6','C-Spine Assessment (2017)',['Trauma clearance','Nexus and Canadian c-spine rules']],
+['gp-e7','Carpal Tunnel (2019)',['Focused hx + exam + mx']],
+['gp-e8','Tennis Elbow (2021)',['Elbow pain exam','Ix and Mx formulation']],
+['gp-e9','COPD Resp Exam (2011)',['Heavy smoker, chronic cough + sputum','Focused resp exam, present findings','Explain spirometry, DLCO + CXR (RML opacity ?ca) and how they support Dx']]]},
+{id:'ah2',code:'AH2',title:'Adult Health 2 / Surgery',c:'--c-ah2',clinical:[
+['ah2-c1','Snake Bite (2012)',['Immediate management, PIM bandaging']],
+['ah2-c2','Herpes (2013)',['Dx, Ix, Mx formulation']],
+['ah2-c3','Pre-op Counselling (2014)',['TURP patient on warfarin','Bridging plan']],
+['ah2-c4','Needlestick Injury (2016)',['Ask pt Hx to find risk + Ix']],
+['ah2-c5','Fluid Management (2017)',['Fluid chart to fill','Dummy present hydration check']],
+['ah2-c6','Colon Cancer (2019)',['SPIKES protocol, Ix, Mx']],
+['ah2-c7','Surgical Site Infection (x2 Repeats)',['2020: GP reviewing SSI hx, dx, mx ?antibiotics','2022: SSI post open appendectomy. Hx + Mx - what Abx?']],
+['ah2-c8','FOBT Positive (2023)',['Focused Hx + explain Mx plan (colonoscopy)']],
+['ah2-c9','Cellulitis (x2 Repeats)',['2012 & 2013: Follow-up in community']],
+['ah2-c10','Pilonidal Sinus (2015)',['Mx + prevention strategies']],
+['ah2-c11','Breast Cancer 64 YO (2016)',['Education on fam screening and mammography','Why not found on screening?']],
+['ah2-c12','Post-op Delirium (2017)',['Identify triggers, environmental management']],
+['ah2-c13','Haematemesis (2018)',['Background of alcoholic liver disease','Arrange verbal referral + mx']],
+['ah2-c14','Splenic Laceration (2019)',['Post MVA – LUQ pain, unstable vitals, mx']],
+['ah2-c15','Post-op Bleed – Live Trauma (2011)',['60 YO F, 2h post knee replacement, 1L in drain','Brief Hx + exam, ABCDE resus with team','Pressure, fluids, G&H/O-neg, FFP + platelets, call surgeons, analgesia, IDC']],
+['ah2-c16','Chronic Ear Discharge (2011)',['~5 YO Indigenous girl, talk to mum','Discharge Hx, video of ear → CSOM','Explain Dx, Ix + Mx (don’t forget hearing)']]],exams:[
+['ah2-e1','Hernia Exam (2015)',['Explain cause + Mx']],
+['ah2-e2','Small Bowel Obstruction (x2 Repeats)',['2014 & 2018: Exam, X-ray interpretation. Hx, Ix + mx']],
+['ah2-e3','Neck Lump (2021)',['Subclinical hyperthyroidism','Exam + interpret results']]]},
+{id:'cah',code:'CAH',title:'Child & Adolescent Health',c:'--c-cah',clinical:[
+['cah-c1','Reduced Feeding (3 Week Old) (2023)',['Input/output less than ½ of usual','Take focused Hx, vitals, exam findings','Explain Ix (?septic screen)']],
+['cah-c2','Failure to Thrive (2014)',['Growth chart completion and interpretation']],
+['cah-c3','Irritable Infant (4 Week Old) (2015)',['Reduced feeding ?UTI, URTI']],
+['cah-c4','Non-Accidental Injury (NAI) (x3 Repeats)',['2016: 8-week-old swollen leg + new partner','2018: 8-week-old swollen right leg, spiral fracture mx','2022: 3-week-old R) humerus fracture, new partner']],
+['cah-c5','Coughing Child 2 YO (2017)',['Hx + Dx formulation']],
+['cah-c6','ARF/RHD 7YO F (2019)',['Explain features, pathogen, mx with injections']],
+['cah-c7','Impetigo (?) (2020)',['Phone consult with aboriginal health worker','ATSI kid lip infection']],
+['cah-c8','T1DM Diagnosis (2012)',['Hx, Ix, Mx, Dx explanation']],
+['cah-c9','Febrile Child (2013)',['Dx, Ix, Mx plan formulation']],
+['cah-c10','Febrile Seizure (x4 Repeats)',['2012: D/C plans. ?Midazolam','2014 & 2020: Counselling','2018: 3 yo with D/C summary explain']],
+['cah-c11','EBV (2016)',['Fatigue + sore throat. Mx + ddx']],
+['cah-c12','Overweight Child (2017)',['Screen for genetic cause, lifestyle advice']],
+['cah-c13','Functional Constipation (2019)',['Hx, Dx + Ddx']],
+['cah-c14','Cough 4 mos old (2021)',['DDX, Bronchiolitis mx']],
+['cah-c15','Asthma Hx + Mx Plan (2011)',['3 YO post admission, mum present','Only using meds during attacks/URTIs','Preventer vs reliever, spacer technique']]],exams:[
+['cah-e1','Paeds Pneumonia (2013)',['Follow up Hx + resp exam']],
+['cah-e2','12 YO M 2wk Review (2015)',['Focused resp exam']],
+['cah-e3','6 Week Baby Check (2021)',['Developmental dysplasia of hip exam','Growth chart explanation']],
+['cah-e4','Heart Murmur – CVS Exam (2011)',['10 YO, murmur found by school nurse, recent fever','Focused CVS Hx + exam (size the BP cuff)','Explain innocent murmur, consider ARF, follow-up']]]},
+{id:'mh',code:'MH',title:'Mental Health',c:'--c-mh',clinical:[
+['mh-c1','Suicide Risk Assessment (x6 Repeats)',['2012/2016: Gen / CO poisoning','2015/2019: Paracetamol OD','2017/2021: Slice wrist with bread knife post breakup']],
+['mh-c2','Alcohol History / Withdrawal (x4 Repeats)',['2013: Alcohol hx','2020: Depression + risky consumption','2023: Alcohol withdrawal, Mx + examiner qs','2022: Elevated GGT, long term effects']],
+['mh-c3','SSRI Counselling (x2 Repeats)',['2015: Generic SSRI','2020: Sertraline']],
+['mh-c4','Anorexia Nervosa (x2 Repeats)',['2012: Prev diagnosed, blood results','2016: Newly diagnosed. Explain blood test results. Mx.']],
+['mh-c5','Anxiety / Panic (x3 Repeats)',['2017: Panic attack first episode','2018: Palpitations + chest pain, DSM criteria','2022: Palpitations, justify GAD + diffs']],
+['mh-c6','Clozapine (2019)',['Good adherence, recurrent symptoms Hx','Ix interpretation']],
+['mh-c7','Antipsychotic Use (2014)',['Side effect Hx']],
+['mh-c8','Low Mood in Pregnancy (2018)',['Perinatal depression screening']],
+['mh-c9','Depression in Older Person (2011)',['79 YO F, tired + forgetful. Depression Hx','DDx: MDD vs dementia vs organic; Ix to exclude organic','Antidepressants + side effects, CBT']],
+['mh-c10','PTSD (2011)',['30 YO F, mother of 2, poor sleep, worried about PTSD','PTSD Hx against DSM criteria, empathy','Explain the diagnosis']]],exams:[
+['mh-e1','Schizophrenia / Psychosis (2014)',['Hx + MSE (Mental State Examination)']]]},
+{id:'ah1',code:'AH1',title:'Adult Health 1 / Medicine',c:'--c-ah1',clinical:[
+['ah1-c2','Anaphylaxis (2013)',['Acute management (Adrenaline)']],
+['ah1-c3','Aortic Stenosis (x2 Repeats)',['2012: Murmur, signs of severity','2014: + 3 Ix']],
+['ah1-c4','Syncope / Seizure / Epilepsy (x5 Repeats)',['2013/2016: LOC, collateral Hx','2017/2021/2023: Epilepsy counselling (SPIKES), Mx']],
+['ah1-c5','Delirium (x2 Repeats)',['2018: b/g dementia + new med + faecal impaction','2020: Collateral hx, diffs, mx + qs']],
+['ah1-c6','CCF Palliative Care (2019)',['With carer fatigue Hx + Mx']],
+['ah1-c7','Dengue (2022)',['Headache, rash, diarrhoea. Travel hx','Complete path form with 6 Ix']],
+['ah1-c8','Extradural Haemorrhage (2016)',['Calculate GCS, DDx']],
+['ah1-c9','Acute Joint Pain / Gout (x2 Repeats)',['2012: Focused Hx, knee photo → gout, Ix, Mx','2017: Hx, Ix, Dx, Mx']],
+['ah1-c10','Macroscopic Haematuria (2018)',['Focus Hx. PMHx Wegners granulomatosis. Dx + Ix.']],
+['ah1-c11','Professionalism (2020)',['Colleague withdrawn, late/argumentative']],
+['ah1-c12','Resus Hypoglycemia (2022)',['70 YO after bowel prep for theatre','Give O2, saline, dextrose/glucagon. Answer qs']],
+['ah1-c13','Phone Handover – Pneumonia (2011)',['1am call to annoyed senior','Elderly man: fall, new AF, delirium, sats 80s','Prioritise key points, not NFR → push for ICU']]],exams:[
+['ah1-e1','Death Certificate (2014)',['Physical exam + grief counselling']],
+['ah1-e2','Infective Endocarditis (2015)',['Exam for stigmata']],
+['ah1-e3','Haematology Exam (x2 Repeats)',['2015: Gum hypertrophy + fever ?AML','2023: Leukaemia- Haem exam + first line Ix + explain']],
+['ah1-e4','Seasonal Asthma (2019)',['PEF explanation. Resp exam']],
+['ah1-e5','Thyroid / Neck Lump Exam (2011)',['Young F, lump that comes and goes, no systemic Sx','Neck lump + thyroid exam, peripheral thyroid signs','Reassure, USS → FNA if suspicious']]]}
+];
+
+// Parse titles into name, year tag, repeat count
+function parse(t){
+  const rep=t.match(/\(x(\d+) Repeats\)/);const yr=t.match(/\((\d{4})\)\s*$/);
+  const name=t.replace(/\s*\(x\d+ Repeats\)/,'').replace(/\s*\(\d{4}\)\s*$/,'');
+  return {name,rep:rep?+rep[1]:0,year:yr?yr[1]:''};
+}
+const ALL=[];D.forEach(d=>['clinical','exams'].forEach(k=>d[k]=d[k].map(([id,title,b])=>{const o={id,title,b,...parse(title),d};ALL.push(o);return o})));
+const IDS=new Set(ALL.map(t=>t.id));
+
+const PRACTICE='practice.html';
+const LS='osce-checklist-v1';
+let checks={};try{checks=JSON.parse(localStorage.getItem(LS)||'{}')||{}}catch(e){}
+const open=new Set();let fTodo=false,fRep=false,q='',confirming=false;
+let remote=null;
+
+const $=s=>document.querySelector(s);
+const esc=s=>s.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const tickSvg='<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7"/></svg>';
+const chev='<svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>';
+
+function done(id){return !!checks[id]}
+function match(t){
+  if(fTodo&&done(t.id))return false;
+  if(fRep&&!t.rep)return false;
+  if(q){const hay=(t.title+' '+t.b.join(' ')+' '+t.d.code+' '+t.d.title).toLowerCase();if(!q.split(/\s+/).every(w=>hay.includes(w)))return false}
+  return true;
+}
+function itemHtml(t){
+  const isO=open.has(t.id),isD=done(t.id);
+  const notes=t.b.map(x=>x.startsWith('Mnemonic:')?`<li class="mn">${esc(x)}</li>`:`<li>${esc(x)}</li>`).join('');
+  return `<div class="item${isD?' done':''}${isO?' open':''}" data-id="${t.id}">
+    <div class="row">
+      <button class="tick" data-act="tick" aria-pressed="${isD}" aria-label="${isD?'Mark as not done':'Mark as done'}: ${esc(t.name)}">${tickSvg}</button>
+      <button class="toggle" data-act="open" aria-expanded="${isO}">
+        <span class="tmain"><span class="ttl">${esc(t.name)}</span>
+        <span class="meta">${t.year?`<span class="tag">${t.year}</span>`:''}${t.rep?`<span class="tag rep">×${t.rep} repeats</span>`:''}</span></span>${chev}
+      </button>
+      <a class="prac" href="${PRACTICE}#${t.id}" aria-label="Practise ${esc(t.name)}">Practise</a>
+    </div>
+    ${isO?`<div class="notes"><ul>${notes}</ul></div>`:''}
+  </div>`;
+}
+function render(){
+  const total=ALL.length,n=ALL.filter(t=>done(t.id)).length,p=Math.round(n/total*100);
+  $('#pct').textContent=p+'%';$('#cnt').textContent=`${n} / ${total} completed`;
+  $('#bar').innerHTML=D.map(d=>{const c=[...d.clinical,...d.exams].filter(t=>done(t.id)).length;return `<i title="${d.code}: ${c}" style="width:${c/total*100}%;background:var(${d.c})"></i>`}).join('');
+  let html='',shown=0;
+  D.forEach(d=>{
+    const all=[...d.clinical,...d.exams],c=all.filter(t=>done(t.id)).length;
+    const cl=d.clinical.filter(match),ex=d.exams.filter(match);
+    if(!cl.length&&!ex.length)return;shown++;
+    html+=`<section class="domain" style="--dc:var(${d.c})">
+      <div class="dhead"><span class="code">${d.code}</span><h2>${esc(d.title)}</h2><span class="dcount${c===all.length?' full':''}">${c} / ${all.length}</span></div>
+      <div class="minibar"><i style="width:${c/all.length*100}%"></i></div>
+      ${cl.length?`<div class="kind">Clinical cases</div>${cl.map(itemHtml).join('')}`:''}
+      ${ex.length?`<div class="kind">Examinations</div>${ex.map(itemHtml).join('')}`:''}
+    </section>`;
+  });
+  $('#list').innerHTML=shown?html:`<div class="empty">No cases match these filters.</div>`;
+  $('#resetZone').innerHTML=confirming
+    ?`<div class="confirm">Clear all ${n} ticks? <button class="danger" data-act="reset-yes">Clear progress</button><button data-act="reset-no">Cancel</button></div>`
+    :(n?`<button class="reset" data-act="reset">Reset progress</button>`:'');
+}
+
+let saveTimer=null;
+function save(){
+  try{localStorage.setItem(LS,JSON.stringify(checks))}catch(e){}
+  if(!remote)return;
+  clearTimeout(saveTimer);
+  saveTimer=setTimeout(()=>{remote.set({checks,updatedAt:Date.now()}).then(()=>setSync('Synced to your account'),()=>setSync('Sync failed · saved in this browser'))},400);
+}
+function setSync(t){$('#sync').textContent=t}
+
+document.addEventListener('click',e=>{
+  const b=e.target.closest('[data-act]');if(!b)return;
+  const act=b.dataset.act,id=b.closest('.item')?.dataset.id;
+  if(act==='tick'){checks[id]=!checks[id];if(!checks[id])delete checks[id];save();render();document.querySelector(`.item[data-id="${id}"] .tick`)?.focus()}
+  else if(act==='open'){open.has(id)?open.delete(id):open.add(id);render();document.querySelector(`.item[data-id="${id}"] .toggle`)?.focus()}
+  else if(act==='reset'){confirming=true;render()}
+  else if(act==='reset-no'){confirming=false;render()}
+  else if(act==='reset-yes'){checks={};confirming=false;save();render()}
+});
+$('#q').addEventListener('input',e=>{q=e.target.value.trim().toLowerCase();render()});
+function pill(id,fn){const b=$(id);b.addEventListener('click',()=>{const v=b.getAttribute('aria-pressed')!=='true';b.setAttribute('aria-pressed',v);fn(v);render()})}
+pill('#f-todo',v=>fTodo=v);pill('#f-rep',v=>fRep=v);
+pill('#f-open',v=>{open.clear();if(v)ALL.forEach(t=>open.add(t.id));$('#f-open').textContent=v?'Collapse all':'Expand all'});
+
+render();
+
+// Sync progress to the viewer's account so it follows them across devices
+(async()=>{
+  try{
+    if(!window.claude?.use)return;
+    const [db,user]=await Promise.all([claude.use('db'),claude.use('user')]);
+    if(!db||!user)return;
+    const uid=await user.id();if(!uid)return;
+    remote=db.collection('data/users/'+uid).doc('osce-progress');
+    let first=true;
+    remote.onSnapshot(snap=>{
+      if(snap.exists){
+        const r=snap.data()?.checks||{};const clean={};
+        for(const k in r)if(IDS.has(k)&&r[k])clean[k]=true;
+        if(first&&!Object.keys(clean).length&&Object.keys(checks).length){first=false;save();return}
+        checks=clean;try{localStorage.setItem(LS,JSON.stringify(checks))}catch(e){}
+        render();
+      }else if(first&&Object.keys(checks).length){save()}
+      first=false;setSync('Synced to your account');
+    },()=>setSync('Saved in this browser'));
+  }catch(e){}
+})();
+</script>
+
+</body>
+</html>
