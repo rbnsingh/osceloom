@@ -53,6 +53,7 @@ h1{font-family:var(--f-display);font-weight:800;font-size:1.55rem;letter-spacing
 .chipbtn{font:inherit;font-size:.8rem;font-weight:700;padding:6px 10px;border-radius:99px;border:1px solid var(--line);background:var(--surface);color:var(--muted);cursor:pointer;white-space:nowrap}
 .chipbtn[aria-pressed="true"]{background:var(--accent-soft);color:var(--accent);border-color:transparent}
 .sync{font-size:.75rem;color:var(--muted)}
+.syncpanel{border:1px solid var(--line);border-radius:12px;padding:12px 14px;background:var(--surface-2);display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap}.syncpanel strong{font-size:.9rem}.syncpanel p{font-size:.8rem;color:var(--muted);margin:2px 0 0}.syncform{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.syncform input{font:inherit;min-width:150px;max-width:230px;padding:7px 9px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--fg)}.syncform button,.syncaction{font:inherit;font-size:.8rem;font-weight:700;padding:8px 12px;border-radius:8px;border:1px solid var(--line);background:var(--surface);color:var(--fg);cursor:pointer}.syncform button.primary{background:var(--accent);color:white;border-color:transparent}.syncform button:disabled,.syncaction:disabled{opacity:.45;cursor:wait}.syncmsg{color:var(--hot);font-size:.8rem;max-width:100%}
 
 section.domain{background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden}
 .dhead{display:flex;align-items:center;gap:12px;padding:14px 16px;border-bottom:1px solid var(--line)}
@@ -113,6 +114,19 @@ section.domain{background:var(--surface);border:1px solid var(--line);border-rad
       <button class="chipbtn" id="f-todo" aria-pressed="false">Hide done</button>
       <button class="chipbtn" id="f-rep" aria-pressed="false">Repeats only</button>
       <button class="chipbtn" id="f-open" aria-pressed="false">Expand all</button>
+    </div>
+    <div class="syncpanel" id="cloudpanel" hidden>
+      <div><strong id="cloudtitle">Shared checklist</strong><p id="cloudhint">Sign in on both devices using the same account to share completed cases.</p></div>
+      <form class="syncform" id="cloudlogin" hidden>
+        <input id="cloudemail" type="email" autocomplete="username" placeholder="Shared account email" aria-label="Shared account email" required>
+        <input id="cloudpassword" type="password" autocomplete="current-password" placeholder="Password" aria-label="Password" required>
+        <button class="primary" type="submit">Sign in</button>
+      </form>
+      <div class="syncform" id="cloudsigned" hidden>
+        <button class="syncaction" id="importticks" type="button" hidden>Import saved ticks</button>
+        <button class="syncaction" id="cloudlogout" type="button">Sign out</button>
+      </div>
+      <div class="syncmsg" id="cloudmsg" role="status" aria-live="polite"></div>
     </div>
   </header>
   <main id="list" style="display:flex;flex-direction:column;gap:20px"></main>
@@ -247,7 +261,8 @@ const PRACTICE='practice.html';
 const LS='osce-checklist-v1';
 let checks={};try{checks=JSON.parse(localStorage.getItem(LS)||'{}')||{}}catch(e){}
 const open=new Set();let fTodo=false,fRep=false,q='',confirming=false;
-let remote=null;
+let cloudActive=false;
+let cloudReady=false;
 
 const $=s=>document.querySelector(s);
 const esc=s=>s.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
@@ -298,23 +313,33 @@ function render(){
     :(n?`<button class="reset" data-act="reset">Reset progress</button>`:'');
 }
 
-let saveTimer=null;
 function save(){
   try{localStorage.setItem(LS,JSON.stringify(checks))}catch(e){}
-  if(!remote)return;
-  clearTimeout(saveTimer);
-  saveTimer=setTimeout(()=>{remote.set({checks,updatedAt:Date.now()}).then(()=>setSync('Synced to your account'),()=>setSync('Sync failed · saved in this browser'))},400);
+  if(!cloudActive)setSync('Saved in this browser');
 }
 function setSync(t){$('#sync').textContent=t}
-
+window.osceCloudBridge={
+  setStatus:setSync,
+  setRemote(next){
+    cloudActive=true;cloudReady=true;
+    const clean={};for(const k in next)if(IDS.has(k)&&next[k])clean[k]=true;
+    checks=clean;render();setSync('Shared checklist synced');
+  },
+  unsetRemote(){cloudActive=false;cloudReady=false;
+    try{checks=JSON.parse(localStorage.getItem(LS)||'{}')||{}}catch(e){checks={}}
+    render();setSync('Saved in this browser');
+  },
+  localTicks(){const r={};try{Object.assign(r,JSON.parse(localStorage.getItem(LS)||'{}')||{})}catch(e){};return Object.keys(r).filter(id=>IDS.has(id)&&r[id]);},
+  allIds(){return ALL.map(x=>x.id)}
+};
 document.addEventListener('click',e=>{
   const b=e.target.closest('[data-act]');if(!b)return;
   const act=b.dataset.act,id=b.closest('.item')?.dataset.id;
-  if(act==='tick'){checks[id]=!checks[id];if(!checks[id])delete checks[id];save();render();document.querySelector(`.item[data-id="${id}"] .tick`)?.focus()}
+  if(act==='tick'){if(cloudActive&&!cloudReady)return;const value=!checks[id];checks[id]=value;if(!value)delete checks[id];if(cloudActive){window.osceCloud?.setCase(id,value).catch(()=>{setSync('Save failed, check connection')})}else save();render();document.querySelector(`.item[data-id="${id}"] .tick`)?.focus()}
   else if(act==='open'){open.has(id)?open.delete(id):open.add(id);render();document.querySelector(`.item[data-id="${id}"] .toggle`)?.focus()}
   else if(act==='reset'){confirming=true;render()}
   else if(act==='reset-no'){confirming=false;render()}
-  else if(act==='reset-yes'){checks={};confirming=false;save();render()}
+  else if(act==='reset-yes'){const previous={...checks};checks={};confirming=false;if(cloudActive){window.osceCloud?.reset().catch(()=>{checks=previous;render();setSync('Reset failed, check connection')})}else save();render()}
 });
 $('#q').addEventListener('input',e=>{q=e.target.value.trim().toLowerCase();render()});
 function pill(id,fn){const b=$(id);b.addEventListener('click',()=>{const v=b.getAttribute('aria-pressed')!=='true';b.setAttribute('aria-pressed',v);fn(v);render()})}
@@ -323,28 +348,8 @@ pill('#f-open',v=>{open.clear();if(v)ALL.forEach(t=>open.add(t.id));$('#f-open')
 
 render();
 
-// Sync progress to the viewer's account so it follows them across devices
-(async()=>{
-  try{
-    if(!window.claude?.use)return;
-    const [db,user]=await Promise.all([claude.use('db'),claude.use('user')]);
-    if(!db||!user)return;
-    const uid=await user.id();if(!uid)return;
-    remote=db.collection('data/users/'+uid).doc('osce-progress');
-    let first=true;
-    remote.onSnapshot(snap=>{
-      if(snap.exists){
-        const r=snap.data()?.checks||{};const clean={};
-        for(const k in r)if(IDS.has(k)&&r[k])clean[k]=true;
-        if(first&&!Object.keys(clean).length&&Object.keys(checks).length){first=false;save();return}
-        checks=clean;try{localStorage.setItem(LS,JSON.stringify(checks))}catch(e){}
-        render();
-      }else if(first&&Object.keys(checks).length){save()}
-      first=false;setSync('Synced to your account');
-    },()=>setSync('Saved in this browser'));
-  }catch(e){}
-})();
 </script>
+<script type="module" src="shared-sync.js"></script>
 
 </body>
 </html>
